@@ -1490,8 +1490,8 @@ export default function Home() {
 
               <p className="mt-7 max-w-[520px] text-base leading-7 text-[#617079] sm:text-[17px]">
                 Verdant is an AI-powered mock interview platform where students
-                can practice for real-world interviews — by chat, voice, or
-                video call — for any role, anytime.
+                can practice for real-world interviews by chat, voice, or
+                video call for any role, anytime.
               </p>
 
               <div className="mt-8 flex flex-col items-start gap-4">
@@ -1518,7 +1518,7 @@ export default function Home() {
                         <Icon className="h-5 w-5" strokeWidth={1.45} />
                       </div>
 
-                      <span className="mt-2.5 max-w-[100px] text-[11px] font-semibold leading-4 text-[#2f3d46]">
+                      <span className="mt-2.5 max-w-[100px] text-[11px] font-bold leading-4 text-[#2f3d46]">
                         {feature.label}
                       </span>
                     </div>
@@ -1533,7 +1533,7 @@ export default function Home() {
               <div className="absolute right-[-60px] top-[60px] h-[500px] w-[500px] rounded-full bg-[#dcefe8] opacity-50 blur-[120px]" />
 
               {/* Handwritten text — top right */}
-              <div className="absolute right-0 -top-2 z-30 hidden max-w-[220px] text-right font-[cursive] text-[20px] italic leading-[1.2] text-[#34434a] lg:block">
+              <div className={`${caveat.className} text-[27px] font-semibold leading-[.9] text-[#56686f] absolute right-0 -top-2 z-30 hidden max-w-[220px] text-right    lg:block `}>
                 Different Roles.
                 <br />
                 Real Conversations.
@@ -2159,7 +2159,7 @@ export default function Home() {
   ========================================== */}
         <div className="pointer-events-none absolute bottom-[20px] right-[38px] hidden rotate-[5deg] xl:block">
 
-          <div className="font-[var(--font-caveat)] text-[19px] font-semibold leading-[0.9] text-[#64757b]">
+          <div className={`${caveat.className} text-[27px] font-semibold leading-[.9] text-[#56686f] `}>
             Same
             <br />
             Students.
