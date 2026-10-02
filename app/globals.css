@@ -17,6 +17,10 @@ html {
   background: var(--background);
 }
 
+section {
+  scroll-margin-top: calc(76px + 16px);
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -68,4 +72,132 @@ textarea {
 
 .animate-soft-rise {
   animation: fadeUp 0.55s ease-out both;
+}
+
+@keyframes featureCopyIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes featureMockIn {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-feature-copy {
+  animation: featureCopyIn 260ms ease-out both;
+}
+
+.animate-feature-mock {
+  animation: featureMockIn 260ms ease-out both;
+}
+
+@keyframes timelineStepEnter {
+  from {
+    transform: translateY(12px);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes timelinePreviewIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-timeline-step {
+  animation: timelineStepEnter 420ms ease-out both;
+}
+
+.animate-timeline-preview {
+  animation: timelinePreviewIn 200ms ease-out both;
+}
+
+@keyframes faqFilterIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-faq-filter {
+  animation: faqFilterIn 200ms ease-out both;
+}
+
+.faq-card {
+  opacity: 1;
+  transform: none;
+}
+
+.faq-card.opacity-0 {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.faq-card.opacity-100 {
+  opacity: 1;
+  transform: none;
+}
+
+.persona-panel {
+  container-type: inline-size;
+}
+
+@media (min-width: 900px) {
+  @container (max-width: 560px) {
+    .persona-mini-ui {
+      display: none;
+    }
+
+    .persona-panel-content {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .persona-preview-column {
+      display: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-feature-copy,
+  .animate-feature-mock,
+  .animate-timeline-step,
+  .animate-timeline-preview,
+  .animate-faq-filter {
+    animation: none;
+  }
+
+  .faq-card,
+  .faq-card.opacity-0,
+  .faq-card.opacity-100 {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

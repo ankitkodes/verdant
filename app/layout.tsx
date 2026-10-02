@@ -15,7 +15,7 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Verdat — AI Mock Interview Platform",
+  title: "Verdant — AI Mock Interview Platform",
   description:
     "Practice real-world interviews with AI through chat, voice, and video.",
 };
