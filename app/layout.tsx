@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Caveat, Inter } from "next/font/google";
 import "./globals.css";
+import { AppProviders } from "@/components/auth/AppProviders";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${caveat.variable} font-sans antialiased`}
       >
-        {children}
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

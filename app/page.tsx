@@ -7,7 +7,6 @@ import {
   BarChart3,
   BriefcaseBusiness,
   Check,
-  CircleAlert,
   Clock3,
   Code2,
   GraduationCap,
@@ -23,11 +22,9 @@ import {
   Video,
   Zap,
 } from "lucide-react";
-import { Caveat, Inter } from "next/font/google";
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+import { signOut, useSession } from "next-auth/react";
+import { useAuthModal } from "@/components/auth/AuthModalProvider";
+import { Caveat } from "next/font/google";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -35,7 +32,7 @@ const caveat = Caveat({
   variable: "--font-caveat",
 });
 
-const navItems = ["Features", "Roles", "How it Works", "FAQ"];
+const navItems = ["Features", "How it Works", "FAQ"];
 
 const heroFeatures = [
   { label: "Practice by Chat", icon: MessageSquare },
@@ -531,6 +528,7 @@ function StepPreview({ activeStep }: { activeStep: number }) {
 }
 
 function HowItWorksSection() {
+  const { openSignup } = useAuthModal();
   const [activeStep, setActiveStep] = useState(0);
   const sectionRef = useRef<HTMLElement | null>(null);
   const timelineRef = useRef<HTMLDivElement | null>(null);
@@ -624,12 +622,13 @@ function HowItWorksSection() {
             Four simple steps. Practice as often as you like, and see what improves each round.
           </p>
 
-          <a
-            href="#get-started"
+          <button
+            type="button"
+            onClick={openSignup}
             className="mt-7 inline-flex items-center gap-3 rounded-full border border-[#dce5e0] bg-white px-5 py-2.5 text-sm font-medium text-[#243038] transition hover:bg-[#f0f5f2]"
           >
             Try it now
-          </a>
+          </button>
           <StepPreview activeStep={activeStep} />
         </div>
 
@@ -1024,6 +1023,7 @@ const personaPanels = [
 ];
 
 function FeaturesSection() {
+  const { openSignup } = useAuthModal();
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoProgress, setAutoProgress] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -1162,10 +1162,10 @@ function FeaturesSection() {
                   </li>
                 ))}
               </ul>
-              <a href="#get-started" className="mt-5 inline-flex w-fit items-center gap-2 text-[14px] font-semibold text-[#08755e] transition hover:text-[#075d4c]">
+              <button type="button" onClick={openSignup} className="mt-5 inline-flex w-fit items-center gap-2 text-[14px] font-semibold text-[#08755e] transition hover:text-[#075d4c]">
                 Try it yourself
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </a>
+              </button>
             </div>
 
             <div className="min-w-0 lg:-mb-4">
@@ -1334,6 +1334,7 @@ function FAQCard({ item, index, isOpen, onToggle, idSuffix }: FAQCardProps) {
 }
 
 function FAQSection() {
+  const { openSignup } = useAuthModal();
   const [activeCategory, setActiveCategory] = useState("All");
   const [openFaqId, setOpenFaqId] = useState<string | null>(faqItems[0].id);
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -1359,11 +1360,6 @@ function FAQSection() {
     return () => observer.disconnect();
   }, [activeCategory]);
 
-  useEffect(() => {
-    const filteredItems = faqItems.filter((item) => activeCategory === "All" || item.category === activeCategory);
-    setOpenFaqId(filteredItems[0]?.id ?? null);
-  }, [activeCategory]);
-
   const toggleFaq = (id: string) => setOpenFaqId((current) => current === id ? null : id);
 
   return (
@@ -1374,14 +1370,14 @@ function FAQSection() {
             <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#08755e]">FAQ</p>
             <h2 id="faq-heading" className="mt-4 max-w-[700px] text-left text-[2rem] font-extrabold leading-[1.05] tracking-[-0.055em] text-[#101c24] [text-wrap:balance] sm:text-[2.35rem] lg:text-[2.8rem]">Questions, answered</h2>
           </div>
-          <a href="#get-started" className="inline-flex items-center gap-3 rounded-full border border-[#dce5e0] bg-white px-5 py-2.5 text-sm font-medium text-[#243038] transition hover:bg-[#f0f5f2]">
+          <button type="button" onClick={openSignup} className="inline-flex h-11 items-center gap-3 rounded-full border border-[#dce5e0] bg-white px-5 text-sm font-medium text-[#243038] transition hover:bg-[#f0f5f2]">
             Contact us <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </a>
+          </button>
         </div>
 
         <div role="group" aria-label="Filter frequently asked questions" className="-mx-5 mb-6 flex snap-x snap-mandatory gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
           {faqCategories.map((category) => (
-            <button key={category} type="button" aria-pressed={activeCategory === category} onClick={() => setActiveCategory(category)} className={`shrink-0 snap-start rounded-full border px-4 py-2 text-[13px] font-medium transition-colors duration-200 ${activeCategory === category ? "border-[#075d4c] bg-[#075d4c] text-white" : "border-[#dce5e0] bg-transparent text-[#617079] hover:border-[#c8e4d8] hover:text-[#243038]"}`}>
+            <button key={category} type="button" aria-pressed={activeCategory === category} onClick={() => { setActiveCategory(category); setOpenFaqId(faqItems.find((item) => category === "All" || item.category === category)?.id ?? null); }} className={`shrink-0 snap-start rounded-full border px-4 py-2 text-[13px] font-medium transition-colors duration-200 ${activeCategory === category ? "border-[#075d4c] bg-[#075d4c] text-white" : "border-[#dce5e0] bg-transparent text-[#617079] hover:border-[#c8e4d8] hover:text-[#243038]"}`}>
               {category}
             </button>
           ))}
@@ -1402,9 +1398,9 @@ function FAQSection() {
               <p className="mt-2 text-[15px] leading-[1.6] text-[#617079]">Reach out and we&apos;ll get back to you.</p>
             </div>
           </div>
-          <a href="#get-started" className="relative z-10 mt-5 inline-flex items-center gap-3 rounded-full bg-[#075d4c] px-6 py-3 text-sm font-semibold text-white shadow-[0_9px_22px_rgba(7,93,76,.18)] transition hover:-translate-y-0.5 hover:bg-[#064f41] lg:mt-0">
+          <button type="button" onClick={openSignup} className="relative z-10 mt-5 inline-flex h-[50px] items-center gap-3 rounded-full bg-[#075d4c] px-6 text-sm font-semibold text-white shadow-[0_9px_22px_rgba(7,93,76,.18)] transition hover:-translate-y-0.5 hover:bg-[#064f41] lg:mt-0">
             Get in touch <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </a>
+          </button>
         </div>
       </div>
     </section>
@@ -1412,6 +1408,9 @@ function FAQSection() {
 }
 
 export default function Home() {
+  const { openLogin, openSignup } = useAuthModal();
+  const { data: session, status } = useSession();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState("");
 
   useEffect(() => {
@@ -1455,14 +1454,23 @@ export default function Home() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-3">
-            <button className="hidden rounded-full border border-[#dce5e0] bg-white px-5 py-2.5 text-sm font-medium text-[#243038] transition hover:bg-[#f0f5f2] sm:block">
-              Log in
-            </button>
-
-            <button className="rounded-full bg-[#075d4c] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_9px_22px_rgba(7,93,76,.18)] transition hover:-translate-y-0.5 hover:bg-[#064f41]">
-              Get Started
-            </button>
+          <div className="flex items-center gap-2 sm:gap-3">
+            {status === "authenticated" && session?.user ? (
+              <div className="relative">
+                <button type="button" aria-label="Open account menu" aria-expanded={userMenuOpen} onClick={() => setUserMenuOpen((open) => !open)} className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-[#dce5e0] bg-[#eaf7f2] text-sm font-semibold text-[#08755e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#08755e]/35">
+                  {session.user.image ? <img src={session.user.image} alt="" className="h-full w-full object-cover" /> : <span>{(session.user.name ?? session.user.email ?? "V").trim().slice(0, 1).toUpperCase()}</span>}
+                </button>
+                {userMenuOpen && <div className="absolute right-0 top-12 z-50 w-44 rounded-[16px] border border-[#dce5e0] bg-white p-1.5 shadow-[0_12px_30px_rgba(17,74,58,0.12)]">
+                  <a href="/dashboard" className="block rounded-[11px] px-3 py-2.5 text-sm font-medium text-[#243038] hover:bg-[#f0f5f2]">Dashboard</a>
+                  <button type="button" onClick={() => signOut({ callbackUrl: "/" })} className="block w-full rounded-[11px] px-3 py-2.5 text-left text-sm font-medium text-[#52636a] hover:bg-[#f0f5f2]">Log out</button>
+                </div>}
+              </div>
+            ) : (
+              <>
+                <button type="button" onClick={openLogin} disabled={status === "loading"} className="hidden h-11 rounded-full border border-[#dce5e0] bg-white px-5 text-sm font-medium text-[#243038] transition hover:bg-[#f0f5f2] disabled:opacity-60 sm:block">Log in</button>
+                <button type="button" onClick={openSignup} disabled={status === "loading"} className="h-11 rounded-full bg-[#075d4c] px-4 text-sm font-semibold text-white shadow-[0_9px_22px_rgba(7,93,76,.18)] transition hover:-translate-y-0.5 hover:bg-[#064f41] sm:px-5">Get Started</button>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -1495,7 +1503,7 @@ export default function Home() {
               </p>
 
               <div className="mt-8 flex flex-col items-start gap-4">
-                <button id="get-started" className="group inline-flex items-center gap-3 rounded-full bg-[#075d4c] px-7 py-3.5 text-base font-semibold text-white shadow-[0_14px_28px_rgba(7,93,76,.18)] transition hover:-translate-y-0.5">
+                <button id="get-started" type="button" onClick={openSignup} className="group inline-flex h-[52px] items-center gap-3 rounded-full bg-[#075d4c] px-7 text-base font-semibold text-white shadow-[0_14px_28px_rgba(7,93,76,.18)] transition hover:-translate-y-0.5">
                   <span>Start Practicing Free</span>
                   <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                 </button>
@@ -1684,7 +1692,7 @@ export default function Home() {
               <span className="h-[1.5px] w-[20px] -rotate-[35deg] rounded-full bg-[#48c9aa]" />
             </div> */}
 
-            <button className="group mt-6 inline-flex items-center gap-4 rounded-full bg-[#075d4c] px-8 py-[14px] text-[14px] font-semibold text-white shadow-[0_12px_25px_rgba(7,93,76,.19)] transition hover:-translate-y-0.5 hover:bg-[#064f41]">
+            <button type="button" onClick={openSignup} className="group mt-6 inline-flex h-[52px] items-center gap-4 rounded-full bg-[#075d4c] px-8 text-[16px] font-semibold text-white shadow-[0_12px_25px_rgba(7,93,76,.19)] transition hover:-translate-y-0.5 hover:bg-[#064f41]">
               Get Started for Free
               <ArrowRight className="h-[17px] w-[17px] transition group-hover:translate-x-1" />
             </button>

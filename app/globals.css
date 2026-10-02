@@ -148,6 +148,53 @@ textarea {
   animation: faqFilterIn 200ms ease-out both;
 }
 
+@keyframes authModalEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes authSuccess {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-auth-modal {
+  animation: authModalEnter 200ms ease-out both;
+}
+
+@keyframes authContentIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-auth-form,
+.animate-auth-panel {
+  animation: authContentIn 200ms ease-out both;
+}
+
+.animate-auth-success {
+  animation: authSuccess 240ms ease-out both;
+}
+
 .faq-card {
   opacity: 1;
   transform: none;
@@ -189,7 +236,11 @@ textarea {
   .animate-feature-mock,
   .animate-timeline-step,
   .animate-timeline-preview,
-  .animate-faq-filter {
+  .animate-faq-filter,
+  .animate-auth-modal,
+  .animate-auth-form,
+  .animate-auth-panel,
+  .animate-auth-success {
     animation: none;
   }
 
