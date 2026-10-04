@@ -64,8 +64,8 @@ export function LoginForm({ onSignup }: { onSignup: () => void }) {
     };
 
     return (
-        <div className="mx-auto flex w-full max-w-[360px] flex-col justify-center">
-            <h2 id="auth-modal-title" className="text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#101c24]">
+        <div className="mx-auto flex w-full max-w-[380px] flex-col justify-center pb-2">
+            <h2 id="auth-modal-title" className="text-[24px] font-bold leading-[1.15] tracking-[-0.03em] text-[#101c24] sm:text-[28px]">
                 {resetMode ? "Reset your password" : "Log in"}
             </h2>
             <p className="mt-1 text-[15px] leading-[1.4] text-[#617079]">

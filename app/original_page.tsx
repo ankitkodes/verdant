@@ -7,15 +7,10 @@ import {
   BarChart3,
   BriefcaseBusiness,
   Check,
-  ChevronDown,
-  ChevronRight,
   Clock3,
   Code2,
-  Crown,
-  FileText,
   GraduationCap,
   Layers,
-  Menu,
   MessageSquare,
   MessageSquareText,
   Mic,
@@ -25,7 +20,6 @@ import {
   Target,
   TrendingUp,
   Video,
-  X,
   Zap,
 } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
@@ -38,13 +32,13 @@ const caveat = Caveat({
   variable: "--font-caveat",
 });
 
-const navItems = ["Features", "How it Works", "Pricing", "FAQ"];
+const navItems = ["Features", "How it Works", "FAQ"];
 
 const heroFeatures = [
-  { label: "Chat Interviews", icon: MessageSquare },
-  { label: "Voice Interviews", icon: Mic, comingSoon: true },
-  { label: "Video Interviews", icon: Video, comingSoon: true },
-  { label: "AI Feedback", icon: BarChart3 },
+  { label: "Practice by Chat", icon: MessageSquare },
+  { label: "Voice Interviews", icon: Mic },
+  { label: "Video Call Interviews", icon: Video },
+  { label: "Get AI Feedback", icon: BarChart3 },
 ];
 
 const roles = [
@@ -89,18 +83,21 @@ const feedbackMetrics = [
 
 const problemCards = [
   {
-    title: "Practice Without Feedback",
-    description: "You finish an interview but don't know why your answer wasn't strong.",
+    title: "No real feedback",
+    description:
+      "You answer practice questions but never learn what was weak, unclear or missing.",
     icon: MessageSquareText,
   },
   {
-    title: "Practice Without Pressure",
-    description: "Reading answers is different from answering a real interviewer.",
+    title: "No real pressure",
+    description:
+      "Reading answers is easy. Answering out loud, on time, with someone evaluating you is a different skill.",
     icon: Clock3,
   },
   {
-    title: "Practice Without Direction",
-    description: "You keep practicing what you're already comfortable with instead of fixing your weaknesses.",
+    title: "No clear direction",
+    description:
+      "You don't know which topics to focus on, so you end up repeating what you already know.",
     icon: Target,
   },
 ];
@@ -108,78 +105,31 @@ const problemCards = [
 const howItWorksSteps = [
   {
     step: "Step 01",
-    title: "Choose Your Role",
-    description: "Select your target role, experience level, interview type, and difficulty.",
+    title: "Choose your role or topic",
+    description:
+      "Pick the kind of interview you want to prepare for, from technical rounds to HR questions, and set the difficulty you're comfortable with.",
     pills: ["Role-based", "Difficulty levels"],
   },
   {
     step: "Step 02",
-    title: "Start the Interview",
-    description: "Practice with an AI interviewer that asks realistic questions and follows up based on your answers.",
-    pills: ["AI-generated questions", "Adaptive follow-ups"],
+    title: "Take the AI mock interview",
+    description:
+      "Answer questions generated for your chosen track, in a timed setup that feels like the real thing.",
+    pills: ["AI-generated questions", "Timed"],
   },
   {
     step: "Step 03",
-    title: "Get Instant Feedback",
-    description: "Understand what you did well and exactly where you need to improve.",
+    title: "Get instant feedback",
+    description:
+      "See what was strong, what was missing and how you can answer better, right after you finish.",
     pills: ["Detailed review", "Actionable tips"],
   },
   {
     step: "Step 04",
-    title: "Improve & Repeat",
-    description: "Use your feedback to focus your preparation and come back stronger.",
-    pills: ["Progress tracking", "Targeted practice"],
-  },
-];
-
-const faqItems = [
-  { id: "faq-01", category: "Getting started", question: "What is Verdant?", answer: "Verdant is an AI-powered mock interview platform that helps you practice realistic interviews, receive instant feedback, and systematically improve your performance before real interviews." },
-  { id: "faq-02", category: "Getting started", question: "How does the AI mock interview work?", answer: "You choose a role and difficulty, then answer AI-generated interview questions in a chat format. The AI adapts follow-up questions based on your responses, simulating a real interview experience." },
-  { id: "faq-03", category: "Getting started", question: "Which roles can I practice for?", answer: "Verdant supports practice interviews for Software Engineers, Product Managers, Data Analysts, Business Analysts, UX Designers, and Marketing roles — with more being added." },
-  { id: "faq-04", category: "Getting started", question: "Is Verdant free?", answer: "Yes. You can start practicing for free with limited interviews per month. A Pro plan with additional features is coming soon." },
-  { id: "faq-05", category: "Practice and feedback", question: "How does Verdant evaluate my answers?", answer: "After each answer, our AI evaluates your response across multiple dimensions including technical knowledge, communication clarity, confidence, problem-solving approach, and answer structure." },
-  { id: "faq-06", category: "Practice and feedback", question: "Can I retake a session?", answer: "Yes. You can repeat sessions as often as you like and compare your progress over time." },
-  { id: "faq-07", category: "Practice and feedback", question: "Can I practice with voice?", answer: "Voice interviews are coming soon. Currently, all interviews are conducted via text chat." },
-  { id: "faq-08", category: "Practice and feedback", question: "Can I track my improvement?", answer: "Yes. Your interview history and performance metrics are saved so you can track progress and identify areas that need more practice." },
-  { id: "faq-09", category: "Privacy", question: "Is my interview data private?", answer: "Your interview data is stored securely and is only accessible to you. We do not share your responses or performance data with third parties." },
-  { id: "faq-10", category: "Privacy", question: "Can I delete my data?", answer: "Yes. You can delete your interview history and account data at any time from your account settings." },
-];
-
-const faqCategories = ["All", "Getting started", "Practice and feedback", "Privacy"];
-
-const personaPanels = [
-  {
-    id: "students",
-    icon: GraduationCap,
-    name: "Students and freshers",
-    descriptor: "Just starting out",
-    summary: "Get comfortable before your first real interview.",
-    struggles: ["Little or no interview experience", "Nervous about speaking under pressure", "Unsure what interviewers actually ask"],
-    helps: ["Beginner-friendly difficulty levels", "Safe space to make mistakes", "Clear feedback after every answer"],
-    tint: "color-mix(in srgb, #08755e 7%, #f7faf8)",
-    MiniUI: FirstSessionMiniUI,
-  },
-  {
-    id: "job-seekers",
-    icon: BriefcaseBusiness,
-    name: "Job seekers",
-    descriptor: "Actively applying",
-    summary: "Sharpen your answers for the roles you're applying to.",
-    struggles: ["Repeating the same weak answers", "No one to give honest feedback", "Hard to know which topics to revisit"],
-    helps: ["Role-based question tracks", "Timed rounds that feel real", "Weak areas highlighted for retakes"],
-    tint: "color-mix(in srgb, #08755e 13%, #f7faf8)",
-    MiniUI: RoleTracksMiniUI,
-  },
-  {
-    id: "career-switchers",
-    icon: RefreshCw,
-    name: "Career switchers",
-    descriptor: "Changing fields",
-    summary: "Build confidence in a field that's new to you.",
-    struggles: ["Unfamiliar with the new field's questions", "Doubting if your background fits", "Hard to explain your transition"],
-    helps: ["Practice new-role questions step by step", "Learn what good answers look like", "Retake until it feels natural"],
-    tint: "color-mix(in srgb, #08755e 20%, #f7faf8)",
-    MiniUI: CareerSwitchMiniUI,
+    title: "Track progress and retry",
+    description:
+      "Come back, retake sessions and watch your weak areas improve over time.",
+    pills: ["Progress tracking", "Unlimited retries"],
   },
 ];
 
@@ -280,11 +230,11 @@ function LogoMark() {
 
 function VideoMockup() {
   return (
-    <div className="relative w-full max-w-[220px] rotate-[2deg] rounded-[20px] border border-white/70 bg-white/70 p-2.5 shadow-[0_24px_65px_rgba(17,60,48,0.20)] backdrop-blur-xl sm:max-w-[240px] lg:max-w-[280px] lg:rounded-[22px] lg:p-3">
+    <div className="relative w-full max-w-[280px] rotate-[2deg] rounded-[22px] border border-white/70 bg-white/70 p-3 shadow-[0_24px_65px_rgba(17,60,48,0.20)] backdrop-blur-xl">
       <img
         src="/images/videoInterview.png"
         alt="Video interview preview"
-        className="block w-full rounded-[14px] object-cover lg:rounded-[16px]"
+        className="block w-full rounded-[16px] object-cover"
         style={{ aspectRatio: "3/4" }}
       />
     </div>
@@ -293,7 +243,7 @@ function VideoMockup() {
 
 function ChatMockup() {
   return (
-    <div className="relative w-full max-w-[420px] rounded-[20px] border border-[#dfe8e3] bg-white p-4 shadow-[0_20px_55px_rgba(20,58,47,0.10)] sm:rounded-[22px] sm:p-6">
+    <div className="relative w-full max-w-[420px] rounded-[22px] border border-[#dfe8e3] bg-white p-6 shadow-[0_20px_55px_rgba(20,58,47,0.10)]">
       {/* Header */}
       <div className="flex items-center gap-3 pb-4">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e5f4ee]">
@@ -360,34 +310,40 @@ function ChatMockup() {
 
 function FeedbackCard() {
   return (
-    <div className="w-full rounded-[18px] border border-[#dceae4] bg-[#edf7f2] p-4 shadow-[0_16px_45px_rgba(17,74,58,0.08)] sm:rounded-[20px] sm:p-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:gap-5">
-        <div className="min-w-0 flex-1">
+    <div className="w-full rounded-[20px] border border-[#dceae4] bg-[#edf7f2] p-6 shadow-[0_16px_45px_rgba(17,74,58,0.08)]">
+      <div className="flex gap-5">
+        {/* Left: Metrics */}
+        <div className="flex-1 min-w-0">
           <div className="mb-4 flex items-center gap-2.5">
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white text-[#17a985] shadow-[0_2px_8px_rgba(23,169,133,0.1)]">
               <BarChart3 className="h-3.5 w-3.5" />
             </div>
-            <span className="text-[15px] font-bold text-[#172128] sm:text-[16px]">
+
+            <span className="text-[16px] font-bold text-[#172128]">
               AI Feedback
             </span>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {feedbackMetrics.map((metric) => (
-              <div key={metric.label} className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 sm:grid-cols-[118px_1fr_32px]">
-                <span className="text-[12px] text-[#3d4c53] sm:text-[13px]">
+              <div
+                key={metric.label}
+                className="grid grid-cols-[140px_1fr_32px] items-center gap-3"
+              >
+                <span className="text-[13px] text-[#3d4c53]">
                   {metric.label}
                 </span>
-                <span className="text-right text-[12px] font-semibold text-[#253039] sm:hidden">
-                  {metric.value.toFixed(1)}
-                </span>
-                <div className="col-span-2 h-[7px] overflow-hidden rounded-full bg-[#d4e6dd] sm:col-span-1">
+
+                <div className="h-[7px] overflow-hidden rounded-full bg-[#d4e6dd]">
                   <div
                     className="h-full rounded-full bg-[#17a985]"
-                    style={{ width: `${metric.value * 10}%` }}
+                    style={{
+                      width: `${metric.value * 10}%`,
+                    }}
                   />
                 </div>
-                <span className="hidden text-right text-[13px] font-semibold text-[#253039] sm:block">
+
+                <span className="text-right text-[13px] font-semibold text-[#253039]">
                   {metric.value.toFixed(1)}
                 </span>
               </div>
@@ -395,17 +351,17 @@ function FeedbackCard() {
           </div>
         </div>
 
-        <div className="flex w-full shrink-0 flex-row items-center gap-3 rounded-[14px] bg-white/70 px-4 py-3 text-left shadow-[0_4px_16px_rgba(17,74,58,0.05)] sm:w-[160px] sm:flex-col sm:justify-center sm:px-4 sm:py-5 sm:text-center">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#17a985] text-white shadow-[0_8px_20px_rgba(23,169,133,0.25)] sm:mb-1.5 sm:h-11 sm:w-11">
+        {/* Right: Encouragement */}
+        <div className="flex w-[160px] shrink-0 flex-col items-center justify-center rounded-[16px] bg-white/70 px-4 py-5 text-center shadow-[0_4px_16px_rgba(17,74,58,0.05)]">
+          <div className="mb-2.5 flex h-11 w-11 items-center justify-center rounded-full bg-[#17a985] text-white shadow-[0_8px_20px_rgba(23,169,133,0.25)]">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
           </div>
-          <div>
-            <div className="text-[14px] font-bold leading-[1.2] text-[#1a1d1f] sm:text-[15px]">
-              Keep going!
-            </div>
-            <div className="mt-0.5 text-[12px] leading-[1.4] text-[#5a6a72] sm:text-[13px]">
-              You&apos;re on the right track.
-            </div>
+
+          <div className="text-[15px] font-bold leading-[1.2] text-[#1a1d1f]">
+            Keep going!
+          </div>
+          <div className="mt-1 text-[13px] leading-[1.4] text-[#5a6a72]">
+            You&apos;re on the right track.
           </div>
         </div>
       </div>
@@ -474,10 +430,10 @@ function ProblemSection() {
             id="problem-heading"
             className="mt-4 text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.055em] text-[#101c24] sm:text-[2.6rem] lg:text-[3.2rem]"
           >
-            You don&apos;t need more interview questions. You need better practice.
+            Practicing for interviews alone doesn&apos;t work
           </h2>
           <p className="mx-auto mt-4 max-w-[600px] text-[15px] leading-[1.7] text-[#617079] sm:text-[16px]">
-            Watching interview videos and memorizing answers isn&apos;t enough. Real interviews require you to think, communicate, and perform under pressure.
+            Most people prepare by reading answers and hoping for the best. That leaves real gaps you only discover in the actual interview.
           </p>
         </div>
 
@@ -521,117 +477,11 @@ function ProblemSection() {
   );
 }
 
-function smoothPath(points: Array<{ x: number; y: number }>) {
-  if (points.length < 2) return "";
-  let d = `M ${points[0].x} ${points[0].y}`;
-  for (let i = 0; i < points.length - 1; i += 1) {
-    const p0 = points[i === 0 ? i : i - 1];
-    const p1 = points[i];
-    const p2 = points[i + 1];
-    const p3 = points[i + 2] ?? p2;
-    const cp1x = p1.x + (p2.x - p0.x) / 6;
-    const cp1y = p1.y + (p2.y - p0.y) / 6;
-    const cp2x = p2.x - (p3.x - p1.x) / 6;
-    const cp2y = p2.y - (p3.y - p1.y) / 6;
-    d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
-  }
-  return d;
-}
-
-function ProgressTrendChart({ compact = false }: { compact?: boolean }) {
-  const gradientId = `progressFill_${useId().replace(/:/g, "")}`;
-  const glowId = `progressGlow_${useId().replace(/:/g, "")}`;
-  const scores = [5.4, 6.4, 7.0, 8.2, 9.1];
-  const previousScores = [4.8, 5.5, 5.9, 6.4, 6.8];
-  const plot = (score: number) => 28 + ((10 - score) / 6) * 108;
-  const xs = [52, 118, 184, 250, 316];
-  const current = scores.map((score, i) => ({ x: xs[i], y: plot(score), score }));
-  const previous = previousScores.map((score, i) => ({ x: xs[i], y: plot(score) }));
-  const currentLine = smoothPath(current);
-  const previousLine = smoothPath(previous);
-  const currentArea = `${currentLine} L ${current[current.length - 1].x} 148 L ${current[0].x} 148 Z`;
-
-  return (
-    <div className={`flex h-full min-h-0 flex-col ${compact ? "" : "rounded-[16px] border border-[#e2eae6] bg-gradient-to-b from-white to-[#f7fbf9] p-3 sm:p-4"}`}>
-      <div className="mb-1 flex items-start justify-between gap-3">
-        <div>
-          <p className="text-[12px] font-semibold text-[#243038] sm:text-[13px]">Performance trend</p>
-          <p className="mt-0.5 text-[11px] text-[#72878d]">Average score across 5 sessions</p>
-        </div>
-        <div className="rounded-full bg-[#eaf7f2] px-2.5 py-1 text-[11px] font-semibold text-[#08755e]">
-          +3.7
-        </div>
-      </div>
-      <svg
-        viewBox="0 0 360 176"
-        className={`w-full ${compact ? "h-[148px] sm:h-[158px]" : "h-[140px] sm:h-[156px]"}`}
-        role="img"
-        aria-label="Interview score improving from 5.4 to 9.1 across five sessions"
-      >
-        <defs>
-          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#17a985" stopOpacity="0.28" />
-            <stop offset="100%" stopColor="#17a985" stopOpacity="0" />
-          </linearGradient>
-          <filter id={glowId} x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="2.2" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-        {[28, 64, 100, 136].map((y, index) => (
-          <line key={y} x1="36" x2="336" y1={y} y2={y} stroke={index === 3 ? "#dce6e1" : "#edf3f0"} strokeWidth="1" />
-        ))}
-        {["10", "8", "6", "4"].map((label, index) => (
-          <text key={label} x="6" y={[32, 68, 104, 140][index]} fill="#8a989e" fontSize="9" fontFamily="inherit">
-            {label}
-          </text>
-        ))}
-        <path d={currentArea} fill={`url(#${gradientId})`} />
-        {!compact && (
-          <path d={previousLine} className="animate-chart-line" stroke="#b7d7c9" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 5" fill="none" />
-        )}
-        <path d={currentLine} className="animate-chart-line" stroke="#08755e" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" fill="none" filter={`url(#${glowId})`} />
-        {current.map((point, index) => (
-          <g key={point.x}>
-            <circle cx={point.x} cy={point.y} r="5.5" fill="white" />
-            <circle cx={point.x} cy={point.y} r="3.4" fill="#08755e" />
-            {(compact || index === 0 || index === current.length - 1) && (
-              <text x={point.x} y={point.y - 10} textAnchor="middle" fill="#075d4c" fontSize="10" fontWeight="700" fontFamily="inherit">
-                {point.score.toFixed(1)}
-              </text>
-            )}
-          </g>
-        ))}
-        {["S1", "S2", "S3", "S4", "S5"].map((label, index) => (
-          <text key={label} x={current[index].x} y="166" textAnchor="middle" fill="#8a989e" fontSize="10" fontFamily="inherit">
-            {label}
-          </text>
-        ))}
-      </svg>
-      <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-[#52636a] sm:text-[12px]">
-        <span className="inline-flex items-center gap-1.5">
-          <span className="h-1.5 w-3.5 rounded-full bg-[#08755e]" />
-          This week
-        </span>
-        {!compact && (
-          <span className="inline-flex items-center gap-1.5">
-            <span className="h-px w-3.5 border-t-2 border-dashed border-[#b7d7c9]" />
-            Last week
-          </span>
-        )}
-      </div>
-    </div>
-  );
-}
-
 function StepPreview({ activeStep }: { activeStep: number }) {
   return (
-    <div aria-hidden="true" className="mt-6 hidden h-[340px] w-full max-w-[420px] flex-col overflow-hidden rounded-[24px] border border-[#dceae4] bg-white p-5 shadow-[0_16px_38px_rgba(17,74,58,0.08)] lg:flex">
+    <div aria-hidden="true" className="mt-6 hidden h-[280px] w-full max-w-[420px] flex-col rounded-[24px] border border-[#dceae4] bg-white p-6 shadow-[0_16px_38px_rgba(17,74,58,0.08)] lg:flex">
       <p className="shrink-0 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#72878d]">Step {String(activeStep + 1).padStart(2, "0")} preview</p>
-      <div key={activeStep} className="animate-timeline-preview mt-3 flex min-h-0 flex-1 flex-col">
+      <div key={activeStep} className="animate-timeline-preview mt-4 flex min-h-0 flex-1 flex-col">
         {activeStep === 0 && (
           <div className="flex flex-1 flex-col justify-center">
             <p className="text-[13px] font-semibold text-[#243038]">Choose a role</p>
@@ -658,8 +508,18 @@ function StepPreview({ activeStep }: { activeStep: number }) {
         )}
         {activeStep === 3 && (
           <div className="flex min-h-0 flex-1 flex-col">
-            <ProgressTrendChart compact />
-            <button tabIndex={-1} className="mt-3 inline-flex h-9 w-fit items-center rounded-full border border-[#dce5e0] bg-white px-4 text-[14px] font-medium text-[#243038] transition hover:bg-[#f0f5f2]">Retake session</button>
+            <div className="flex min-h-0 flex-1 flex-col justify-center rounded-[15px] border border-[#e2eae6] bg-[#f9fbfa] p-6">
+              <svg viewBox="0 0 320 88" className="h-[76px] w-full" fill="none">
+                <path d="M2 18H318M2 44H318M2 70H318" stroke="#dceae4" strokeWidth="1" />
+                <path d="M2 68C35 62 53 66 82 48C110 31 132 39 156 51C184 65 204 44 229 39C259 32 282 23 318 12" stroke="#08755e" strokeWidth="2.5" strokeLinecap="round" />
+                <path d="M2 78C34 72 58 74 86 62C113 50 136 57 162 61C190 66 211 57 239 51C272 44 292 39 318 32" stroke="#5fc2a2" strokeWidth="2" strokeLinecap="round" strokeDasharray="5 7" />
+              </svg>
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-[13px] text-[#52636a]">
+                <span className="inline-flex items-center gap-2"><i className="h-2 w-2 rounded-full bg-[#08755e]" />This session</span>
+                <span className="inline-flex items-center gap-2"><i className="h-2 w-2 rounded-full bg-[#5fc2a2]" />Previous</span>
+              </div>
+            </div>
+            <button tabIndex={-1} className="mt-3 inline-flex h-9 w-fit items-center rounded-full border border-[#dce5e0] bg-white px-4 text-[14px] font-medium text-[#243038] transition hover:bg-[#f0f5f2]">Retake</button>
           </div>
         )}
       </div>
@@ -767,7 +627,7 @@ function HowItWorksSection() {
             onClick={openSignup}
             className="mt-7 inline-flex items-center gap-3 rounded-full border border-[#dce5e0] bg-white px-5 py-2.5 text-sm font-medium text-[#243038] transition hover:bg-[#f0f5f2]"
           >
-            Start Free Interview <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            Try it now
           </button>
           <StepPreview activeStep={activeStep} />
         </div>
@@ -832,73 +692,9 @@ function HowItWorksSection() {
   );
 }
 
-function FirstSessionMiniUI() {
-  return (
-    <div className="flex h-full flex-col rounded-[20px] border border-[#dce5e0] bg-white p-5 shadow-[0_16px_38px_rgba(17,74,58,0.12)] sm:p-6">
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-[15px] font-semibold text-[#243038]">Your first session</p>
-        <span className="rounded-full bg-[#eaf7f2] px-3 py-1.5 text-[13px] font-medium text-[#08755e]">Easy</span>
-      </div>
-      <div className="mt-5 h-2 overflow-hidden rounded-full bg-[#e4ece8]"><div className="h-full w-[38%] rounded-full bg-[#17a985]" /></div>
-      <p className="mt-5 text-[13px] font-semibold text-[#52636a]">Sample question</p>
-      <p className="mt-2 text-[15px] leading-[1.5] text-[#243038]">Tell me about a time you solved a difficult problem.</p>
-      <div className="mt-4 space-y-3">
-        <div className="h-2 w-[94%] rounded-full bg-[#edf2ef]" />
-        <div className="h-2 w-[82%] rounded-full bg-[#edf2ef]" />
-        <div className="h-2 w-[68%] rounded-full bg-[#edf2ef]" />
-      </div>
-      <div className="mt-auto flex flex-wrap gap-2 pt-4">
-        <span className="rounded-full bg-[#f7faf8] px-3 py-1.5 text-[12px] font-medium text-[#52636a]">Take your time</span>
-        <span className="rounded-full bg-[#f7faf8] px-3 py-1.5 text-[12px] font-medium text-[#52636a]">Speak clearly</span>
-      </div>
-      <div className="mt-4 border-t border-[#e2eae6]" />
-      <span className="mt-3 block rounded-full bg-[#075d4c] px-4 py-3 text-center text-[13px] font-semibold text-white">Start session</span>
-    </div>
-  );
-}
-
-function RoleTracksMiniUI() {
-  return (
-    <div className="flex h-full flex-col rounded-[20px] border border-[#dce5e0] bg-white p-5 shadow-[0_16px_38px_rgba(17,74,58,0.12)] sm:p-6">
-      <p className="text-[15px] font-semibold text-[#243038]">Choose your track</p>
-      <div className="mt-5 flex flex-wrap gap-2">
-        {["Frontend", "Backend", "Full Stack", "Data", "HR Round"].map((role, index) => (
-          <span key={role} className={`rounded-full border px-3 py-2 text-[13px] font-medium ${index === 1 ? "border-[#08755e] bg-[#eaf7f2] text-[#08755e]" : "border-[#dce5e0] bg-[#f9fbfa] text-[#52636a]"}`}>
-            {role}
-          </span>
-        ))}
-      </div>
-      <p className="mb-2 mt-6 text-[13px] font-semibold text-[#52636a]">Difficulty</p>
-      <div className="grid grid-cols-3 rounded-[13px] border border-[#dceae4] bg-[#f7faf8] p-1 text-center text-[13px]">
-        <span className="rounded-[10px] px-2 py-2.5 text-[#617079]">Easy</span>
-        <span className="rounded-[10px] bg-[#08755e] px-2 py-2.5 font-semibold text-white">Medium</span>
-        <span className="rounded-[10px] px-2 py-2.5 text-[#617079]">Hard</span>
-      </div>
-      <span className="mt-auto block rounded-full bg-[#075d4c] px-4 py-3 text-center text-[13px] font-semibold text-white">Start interview</span>
-    </div>
-  );
-}
-
-function CareerSwitchMiniUI() {
-  return (
-    <div className="flex h-full flex-col rounded-[20px] border border-[#dce5e0] bg-white p-5 shadow-[0_16px_38px_rgba(17,74,58,0.12)] sm:p-6">
-      <p className="text-[15px] font-semibold text-[#243038]">Your transition</p>
-      <div className="mt-4 space-y-2">
-        <div className="flex items-center gap-3 rounded-[13px] bg-[#f7faf8] px-3.5 py-3"><BriefcaseBusiness className="h-4 w-4 text-[#08755e]" /><span className="text-[13px] font-medium text-[#52636a]">Previous role</span></div>
-        <div className="flex justify-center"><ArrowDown className="h-4 w-4 text-[#08755e]" /></div>
-        <div className="flex items-center gap-3 rounded-[13px] bg-[#eaf7f2] px-3.5 py-3"><Target className="h-4 w-4 text-[#08755e]" /><span className="text-[13px] font-medium text-[#52636a]">Target role</span></div>
-      </div>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {["Core skills", "Industry context", "Storytelling"].map((skill) => <span key={skill} className="rounded-full border border-[#dce5e0] bg-[#f9fbfa] px-3 py-1.5 text-[12px] font-medium text-[#52636a]">{skill}</span>)}
-      </div>
-      <span className="mt-auto block rounded-full bg-[#075d4c] px-4 py-3 text-center text-[13px] font-semibold text-white">See practice plan</span>
-    </div>
-  );
-}
-
 function AIQuestionsMock() {
   return (
-    <div aria-hidden="true" className="flex h-full min-h-[300px] flex-col bg-white p-4 sm:min-h-[370px] sm:p-5">
+    <div aria-hidden="true" className="flex h-full min-h-[370px] flex-col bg-white p-4 sm:p-5">
       <div className="flex items-center gap-3 border-b border-[#e6ece8] pb-4">
         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#e5f4ee] text-[#08755e]"><Sparkles className="h-4 w-4" /></div>
         <span className="text-sm font-semibold text-[#243038]">Interviewer</span>
@@ -925,7 +721,7 @@ function FeedbackMock() {
   ];
 
   return (
-    <div aria-hidden="true" className="flex h-full min-h-[300px] flex-col gap-4 bg-white p-4 sm:min-h-[370px] sm:p-5">
+    <div aria-hidden="true" className="flex h-full min-h-[370px] flex-col gap-4 bg-white p-4 sm:p-5">
       <div className="flex items-center justify-between gap-3">
         <h4 className="text-[16px] font-semibold text-[#172128]">Answer review</h4>
         <span className="rounded-full border border-[#d7efe6] bg-[#eaf7f2] px-3 py-1 text-[11px] font-semibold text-[#08755e]">Good start</span>
@@ -966,7 +762,7 @@ function RoleMock() {
   ];
 
   return (
-    <div aria-hidden="true" className="flex h-full min-h-[300px] flex-col bg-white p-4 sm:min-h-[370px] sm:p-5">
+    <div aria-hidden="true" className="flex h-full min-h-[370px] flex-col bg-white p-4 sm:p-5">
       <h4 className="text-[16px] font-semibold text-[#172128]">Start a session</h4>
       <div className="mt-4 grid flex-1 grid-cols-2 gap-2 sm:grid-cols-3">
         {roleOptions.map((role, index) => {
@@ -996,7 +792,7 @@ function RoleMock() {
 
 function TimedMock() {
   return (
-    <div aria-hidden="true" className="flex h-full min-h-[300px] flex-col bg-white p-4 sm:min-h-[370px] sm:p-5">
+    <div aria-hidden="true" className="flex h-full min-h-[370px] flex-col bg-white p-4 sm:p-5">
       <div className="h-1.5 overflow-hidden rounded-full bg-[#e4ece8]"><div className="h-full w-[58%] rounded-full bg-[#17a985]" /></div>
       <div className="mt-4 flex items-center justify-between text-[12px] font-medium text-[#52636a]">
         <span>Question 3 of 5</span>
@@ -1040,7 +836,7 @@ function ProgressMock() {
   ];
 
   return (
-    <div aria-hidden="true" className="flex h-full min-h-[300px] flex-col gap-3 bg-white p-4 sm:min-h-[370px] sm:p-5">
+    <div aria-hidden="true" className="flex h-full min-h-[370px] flex-col gap-3 bg-white p-4 sm:p-5">
       <div className="grid grid-cols-3 gap-2">
         {[
           { label: "Sessions", icon: BarChart3 },
@@ -1051,7 +847,13 @@ function ProgressMock() {
           return <div key={tile.label} className="flex items-center gap-2 rounded-[13px] border border-[#e2eae6] bg-[#f9fbfa] px-2.5 py-3"><TileIcon className="h-4 w-4 shrink-0 text-[#08755e]" /><span className="text-[11px] font-medium text-[#52636a]">{tile.label}</span></div>;
         })}
       </div>
-        <ProgressTrendChart />
+      <div className="rounded-[15px] border border-[#e2eae6] bg-[#fbfdfc] p-3">
+        <svg viewBox="0 0 360 112" preserveAspectRatio="none" className="h-[100px] w-full" fill="none">
+          <path d="M0 16H360M0 42H360M0 68H360M0 94H360" stroke="#e4ece8" strokeWidth="1" />
+          <path d="M4 82C35 76 52 80 77 63C102 45 119 57 145 62C171 68 190 48 214 48C240 48 252 35 278 39C308 43 327 23 356 17" stroke="#08755e" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M4 92C35 85 55 90 78 78C107 63 126 72 150 73C177 75 194 63 218 68C246 74 263 55 286 59C313 63 335 45 356 41" stroke="#5fc2a2" strokeWidth="2" strokeLinecap="round" strokeDasharray="5 7" />
+        </svg>
+      </div>
       <div className="flex-1 divide-y divide-[#e8efeb] rounded-[14px] border border-[#e2eae6] bg-white px-3">
         {sessionRows.map((row) => (
           <div key={row.role} className="flex items-center gap-2 py-2.5">
@@ -1117,6 +919,106 @@ const featureTabs = [
     bullets: ["Session history", "Strong and weak topics", "Retake any session"],
     image: "",
     Mock: ProgressMock,
+  },
+];
+
+function FirstSessionMiniUI() {
+  return (
+    <div className="flex h-full flex-col rounded-[20px] border border-[#dce5e0] bg-white p-5 shadow-[0_16px_38px_rgba(17,74,58,0.12)] sm:p-6">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-[15px] font-semibold text-[#243038]">Your first session</p>
+        <span className="rounded-full bg-[#eaf7f2] px-3 py-1.5 text-[13px] font-medium text-[#08755e]">Easy</span>
+      </div>
+      <div className="mt-5 h-2 overflow-hidden rounded-full bg-[#e4ece8]"><div className="h-full w-[38%] rounded-full bg-[#17a985]" /></div>
+      <p className="mt-5 text-[13px] font-semibold text-[#52636a]">Sample question</p>
+      <p className="mt-2 text-[15px] leading-[1.5] text-[#243038]">Tell me about a time you solved a difficult problem.</p>
+      <div className="mt-4 space-y-3">
+        <div className="h-2 w-[94%] rounded-full bg-[#edf2ef]" />
+        <div className="h-2 w-[82%] rounded-full bg-[#edf2ef]" />
+        <div className="h-2 w-[68%] rounded-full bg-[#edf2ef]" />
+      </div>
+      <div className="mt-auto flex flex-wrap gap-2 pt-4">
+        <span className="rounded-full bg-[#f7faf8] px-3 py-1.5 text-[12px] font-medium text-[#52636a]">Take your time</span>
+        <span className="rounded-full bg-[#f7faf8] px-3 py-1.5 text-[12px] font-medium text-[#52636a]">Speak clearly</span>
+      </div>
+      <div className="mt-4 border-t border-[#e2eae6]" />
+      <span className="mt-3 block rounded-full bg-[#075d4c] px-4 py-3 text-center text-[13px] font-semibold text-white">Start session</span>
+    </div>
+  );
+}
+
+function RoleTracksMiniUI() {
+  return (
+    <div className="flex h-full flex-col rounded-[20px] border border-[#dce5e0] bg-white p-5 shadow-[0_16px_38px_rgba(17,74,58,0.12)] sm:p-6">
+      <p className="text-[15px] font-semibold text-[#243038]">Choose your track</p>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {["Frontend", "Backend", "Full Stack", "Data", "HR Round"].map((role, index) => (
+          <span key={role} className={`rounded-full border px-3 py-2 text-[13px] font-medium ${index === 1 ? "border-[#08755e] bg-[#eaf7f2] text-[#08755e]" : "border-[#dce5e0] bg-[#f9fbfa] text-[#52636a]"}`}>
+            {role}
+          </span>
+        ))}
+      </div>
+      <p className="mb-2 mt-6 text-[13px] font-semibold text-[#52636a]">Difficulty</p>
+      <div className="grid grid-cols-3 rounded-[13px] border border-[#dceae4] bg-[#f7faf8] p-1 text-center text-[13px]">
+        <span className="rounded-[10px] px-2 py-2.5 text-[#617079]">Easy</span>
+        <span className="rounded-[10px] bg-[#08755e] px-2 py-2.5 font-semibold text-white">Medium</span>
+        <span className="rounded-[10px] px-2 py-2.5 text-[#617079]">Hard</span>
+      </div>
+      <span className="mt-auto block rounded-full bg-[#075d4c] px-4 py-3 text-center text-[13px] font-semibold text-white">Start interview</span>
+    </div>
+  );
+}
+
+function CareerSwitchMiniUI() {
+  return (
+    <div className="flex h-full flex-col rounded-[20px] border border-[#dce5e0] bg-white p-5 shadow-[0_16px_38px_rgba(17,74,58,0.12)] sm:p-6">
+      <p className="text-[15px] font-semibold text-[#243038]">Your transition</p>
+      <div className="mt-4 space-y-2">
+        <div className="flex items-center gap-3 rounded-[13px] bg-[#f7faf8] px-3.5 py-3"><BriefcaseBusiness className="h-4 w-4 text-[#08755e]" /><span className="text-[13px] font-medium text-[#52636a]">Previous role</span></div>
+        <div className="flex justify-center"><ArrowDown className="h-4 w-4 text-[#08755e]" /></div>
+        <div className="flex items-center gap-3 rounded-[13px] bg-[#eaf7f2] px-3.5 py-3"><Target className="h-4 w-4 text-[#08755e]" /><span className="text-[13px] font-medium text-[#52636a]">Target role</span></div>
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {["Core skills", "Industry context", "Storytelling"].map((skill) => <span key={skill} className="rounded-full border border-[#dce5e0] bg-[#f9fbfa] px-3 py-1.5 text-[12px] font-medium text-[#52636a]">{skill}</span>)}
+      </div>
+      <span className="mt-auto block rounded-full bg-[#075d4c] px-4 py-3 text-center text-[13px] font-semibold text-white">See practice plan</span>
+    </div>
+  );
+}
+
+const personaPanels = [
+  {
+    id: "students",
+    icon: GraduationCap,
+    name: "Students and freshers",
+    descriptor: "Just starting out",
+    summary: "Get comfortable before your first real interview.",
+    struggles: ["Little or no interview experience", "Nervous about speaking under pressure", "Unsure what interviewers actually ask"],
+    helps: ["Beginner-friendly difficulty levels", "Safe space to make mistakes", "Clear feedback after every answer"],
+    tint: "color-mix(in srgb, #08755e 7%, #f7faf8)",
+    MiniUI: FirstSessionMiniUI,
+  },
+  {
+    id: "job-seekers",
+    icon: BriefcaseBusiness,
+    name: "Job seekers",
+    descriptor: "Actively applying",
+    summary: "Sharpen your answers for the roles you're applying to.",
+    struggles: ["Repeating the same weak answers", "No one to give honest feedback", "Hard to know which topics to revisit"],
+    helps: ["Role-based question tracks", "Timed rounds that feel real", "Weak areas highlighted for retakes"],
+    tint: "color-mix(in srgb, #08755e 13%, #f7faf8)",
+    MiniUI: RoleTracksMiniUI,
+  },
+  {
+    id: "career-switchers",
+    icon: RefreshCw,
+    name: "Career switchers",
+    descriptor: "Changing fields",
+    summary: "Build confidence in a field that's new to you.",
+    struggles: ["Unfamiliar with the new field's questions", "Doubting if your background fits", "Hard to explain your transition"],
+    helps: ["Practice new-role questions step by step", "Learn what good answers look like", "Retake until it feels natural"],
+    tint: "color-mix(in srgb, #08755e 20%, #f7faf8)",
+    MiniUI: CareerSwitchMiniUI,
   },
 ];
 
@@ -1243,13 +1145,13 @@ function FeaturesSection() {
           style={{ background: "linear-gradient(125deg, rgba(8,117,94,0.07) 0%, #f9fbf9 54%, #f7faf8 100%)" }}
         >
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-0 rounded-[28px] opacity-25 [background-image:radial-gradient(#cfe7dc_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_76%)]" />
-          <div key={activeTab.id} className="relative z-10 grid min-h-0 gap-8 lg:min-h-[400px] lg:grid-cols-[2fr_3fr] lg:items-stretch lg:gap-8">
+          <div key={activeTab.id} className="relative z-10 grid min-h-[440px] gap-8 lg:min-h-[400px] lg:grid-cols-[2fr_3fr] lg:items-stretch lg:gap-8">
             <div className="flex flex-col justify-center py-2 lg:py-5">
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#08755e] animate-feature-copy">{activeTab.label}</p>
-              <h3 className="mt-4 max-w-[440px] text-[1.55rem] font-semibold leading-[1.12] tracking-[-0.04em] text-[#172128] sm:text-[2.125rem] animate-feature-copy">
+              <h3 className="mt-4 max-w-[440px] text-[1.9rem] font-semibold leading-[1.12] tracking-[-0.04em] text-[#172128] sm:text-[2.125rem] animate-feature-copy">
                 {activeTab.title}
               </h3>
-              <p className="mt-4 max-w-[460px] text-[16px] leading-[1.65] text-[#617079] sm:text-[18px] animate-feature-copy">
+              <p className="mt-4 max-w-[460px] text-[18px] leading-[1.65] text-[#617079] animate-feature-copy">
                 {activeTab.description}
               </p>
               <ul className="mt-6 space-y-[14px]">
@@ -1261,13 +1163,13 @@ function FeaturesSection() {
                 ))}
               </ul>
               <button type="button" onClick={openSignup} className="mt-5 inline-flex w-fit items-center gap-2 text-[14px] font-semibold text-[#08755e] transition hover:text-[#075d4c]">
-                Start Free Interview
+                Try it yourself
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
 
             <div className="min-w-0 lg:-mb-4">
-              <div className="flex h-full min-h-[300px] flex-col overflow-hidden rounded-[20px] border border-[#dce5e0] bg-white shadow-[0_24px_60px_rgba(17,74,58,0.14)] sm:min-h-[390px] lg:min-h-[440px] animate-feature-mock">
+              <div className="flex h-full min-h-[390px] flex-col overflow-hidden rounded-[20px] border border-[#dce5e0] bg-white shadow-[0_24px_60px_rgba(17,74,58,0.14)] lg:min-h-[440px] animate-feature-mock">
                 <div aria-hidden="true" className="flex h-10 shrink-0 items-center gap-1.5 border-b border-[#e6ece8] bg-[#f7faf8] px-4">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#dce5e0]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#cfe7dc]" />
@@ -1282,443 +1184,6 @@ function FeaturesSection() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ============================================================
-// PART 2 — New sections + WhoItsFor + FAQ + Home component
-// This will be concatenated with part 1
-// ============================================================
-
-function ImprovementLoopSection() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (!sectionRef.current || prefersReducedMotion) {
-      const items = sectionRef.current?.querySelectorAll("[data-fade-item]");
-      items?.forEach((item) => {
-        item.classList.remove("opacity-0", "translate-y-6");
-        item.classList.add("opacity-100", "translate-y-0");
-      });
-      return;
-    }
-
-    const revealItems = Array.from(
-      sectionRef.current.querySelectorAll("[data-fade-item]")
-    ) as HTMLElement[];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const target = entry.target as HTMLElement;
-          if (entry.isIntersecting) {
-            target.classList.remove("opacity-0", "translate-y-6");
-            target.classList.add("opacity-100", "translate-y-0");
-            observer.unobserve(target);
-          }
-        });
-      },
-      { threshold: 0.18 }
-    );
-
-    revealItems.forEach((item, index) => {
-      item.classList.add("opacity-0", "translate-y-6");
-      item.style.transitionDelay = `${index * 100}ms`;
-      observer.observe(item);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const loopSteps = [
-    { label: "Interview", icon: MessageSquare, color: "#08755e" },
-    { label: "Feedback", icon: BarChart3, color: "#16a987" },
-    { label: "Weakness", icon: Target, color: "#48c9aa" },
-    { label: "Targeted Practice", icon: Layers, color: "#16a987" },
-    { label: "Improvement", icon: TrendingUp, color: "#08755e" },
-  ];
-
-  return (
-    <section
-      ref={sectionRef}
-      id="improvement-loop"
-      aria-labelledby="improvement-loop-heading"
-      className="relative px-5 py-[72px] sm:py-[88px] lg:px-10 lg:py-[110px]"
-    >
-      <div className="mx-auto max-w-[1320px]">
-        <div
-          data-fade-item
-          className="mx-auto max-w-[760px] text-center transition duration-700 ease-out"
-        >
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#08755e]">
-            The Verdant method
-          </p>
-          <h2
-            id="improvement-loop-heading"
-            className="mt-4 text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.055em] text-[#101c24] sm:text-[2.6rem] lg:text-[3.2rem]"
-          >
-            Don&apos;t Just Practice.{" "}
-            <span className="text-[#08755e]">Improve.</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-[600px] text-[15px] leading-[1.7] text-[#617079] sm:text-[16px]">
-            Every interview should teach you something about how you
-            perform&mdash;and what you should work on next.
-          </p>
-        </div>
-
-        {/* Loop visualization */}
-        <div
-          data-fade-item
-          className="mx-auto mt-12 max-w-[980px] transition duration-700 ease-out"
-        >
-          <div className="rounded-[24px] border border-[#dceae4] bg-white p-5 shadow-[0_16px_40px_rgba(17,74,58,0.06)] sm:p-8">
-            <ol className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
-              {loopSteps.map((step, index) => {
-                const Icon = step.icon;
-                return (
-                  <li key={step.label} className="flex items-center gap-3 sm:min-w-0 sm:flex-1 sm:flex-col sm:items-center sm:gap-3 sm:text-center">
-                    <div className="flex items-center sm:w-full">
-                      <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] border border-[#dceae4] bg-[#f7faf8] shadow-[0_8px_20px_rgba(17,74,58,0.06)] sm:mx-auto sm:h-14 sm:w-14">
-                        <Icon className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: step.color }} strokeWidth={1.8} />
-                      </span>
-                      {index < loopSteps.length - 1 && (
-                        <span aria-hidden="true" className="relative mx-2 hidden h-px flex-1 bg-gradient-to-r from-[#cfe7dc] to-[#eaf7f2] sm:block">
-                          <ChevronRight className="absolute -right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-[#b7d7c9]" />
-                        </span>
-                      )}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#8a989e]">
-                        0{index + 1}
-                      </p>
-                      <p className="mt-0.5 text-[13px] font-semibold leading-snug text-[#243038] sm:text-[14px]">
-                        {step.label}
-                      </p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
-
-            <div className="mt-6 flex items-center justify-center gap-3 rounded-[16px] border border-dashed border-[#c8e4d8] bg-[#f7faf8] px-4 py-3 sm:mt-8">
-              <RotateCcw className="h-4 w-4 shrink-0 text-[#08755e]" strokeWidth={2} />
-              <span className="text-[13px] font-medium leading-[1.45] text-[#52636a]">
-                Then interview again&mdash;better prepared each time.
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function DifferentiationSection() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (!sectionRef.current || prefersReducedMotion) {
-      const items = sectionRef.current?.querySelectorAll("[data-fade-item]");
-      items?.forEach((item) => {
-        item.classList.remove("opacity-0", "translate-y-6");
-        item.classList.add("opacity-100", "translate-y-0");
-      });
-      return;
-    }
-
-    const revealItems = Array.from(
-      sectionRef.current.querySelectorAll("[data-fade-item]")
-    ) as HTMLElement[];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const target = entry.target as HTMLElement;
-          if (entry.isIntersecting) {
-            target.classList.remove("opacity-0", "translate-y-6");
-            target.classList.add("opacity-100", "translate-y-0");
-            observer.unobserve(target);
-          }
-        });
-      },
-      { threshold: 0.18 }
-    );
-
-    revealItems.forEach((item, index) => {
-      item.classList.add("opacity-0", "translate-y-6");
-      item.style.transitionDelay = `${index * 100}ms`;
-      observer.observe(item);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const rows = [
-    { traditional: "Read questions", verdant: "Practice answering" },
-    { traditional: "Memorize answers", verdant: "Think under pressure" },
-    { traditional: "Generic feedback", verdant: "Personalized feedback" },
-    { traditional: "Random practice", verdant: "Targeted practice" },
-    { traditional: "One-time score", verdant: "Track your progress" },
-    { traditional: "Static questions", verdant: "Adaptive interviews" },
-  ];
-
-  return (
-    <section
-      ref={sectionRef}
-      id="why-verdant"
-      aria-labelledby="why-verdant-heading"
-      className="relative px-5 py-[72px] sm:py-[88px] lg:px-10 lg:py-[110px]"
-    >
-      <div className="mx-auto max-w-[1320px]">
-        <div
-          data-fade-item
-          className="mx-auto max-w-[760px] text-center transition duration-700 ease-out"
-        >
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#08755e]">
-            Why Verdant
-          </p>
-          <h2
-            id="why-verdant-heading"
-            className="mt-4 text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.055em] text-[#101c24] sm:text-[2.6rem] lg:text-[3.2rem]"
-          >
-            Not Another Question Generator.
-          </h2>
-          <p className="mx-auto mt-4 max-w-[600px] text-[15px] leading-[1.7] text-[#617079] sm:text-[16px]">
-            Most interview prep tools give you a list of questions and leave you
-            on your own. Verdant is designed to actually make you better.
-          </p>
-        </div>
-
-        <div
-          data-fade-item
-          className="mx-auto mt-12 max-w-[780px] overflow-hidden rounded-[22px] border border-[#dceae4] bg-white shadow-[0_10px_30px_rgba(18,61,49,0.04)] transition duration-700 ease-out"
-        >
-          {/* Table header */}
-          <div className="grid grid-cols-[1fr_1fr] border-b border-[#e6ece8] bg-[#f7faf8]">
-            <div className="px-3 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[#72878d] sm:px-6 sm:py-4 sm:text-[13px]">
-              Traditional Prep
-            </div>
-            <div className="border-l border-[#e6ece8] px-3 py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[#08755e] sm:px-6 sm:py-4 sm:text-[13px]">
-              Verdant
-            </div>
-          </div>
-
-          {/* Table rows */}
-          {rows.map((row, index) => (
-            <div
-              key={row.traditional}
-              className={`grid grid-cols-[1fr_1fr] ${
-                index < rows.length - 1 ? "border-b border-[#edf2ef]" : ""
-              }`}
-            >
-              <div className="px-3 py-3 text-[13px] leading-[1.45] text-[#617079] sm:px-6 sm:py-4 sm:text-[15px]">
-                {row.traditional}
-              </div>
-              <div className="flex items-center gap-2 border-l border-[#edf2ef] bg-[#fafdfb] px-3 py-3 text-[13px] font-medium leading-[1.45] text-[#243038] sm:gap-2.5 sm:px-6 sm:py-4 sm:text-[15px]">
-                <Check
-                  className="h-4 w-4 shrink-0 text-[#08755e]"
-                  strokeWidth={2.5}
-                />
-                {row.verdant}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function RolesSection() {
-  return (
-    <section
-      id="roles"
-      aria-labelledby="roles-heading"
-      className="relative px-5 py-[72px] sm:py-[88px] lg:px-10 lg:py-[110px]"
-    >
-      <div className="mx-auto max-w-[1320px]">
-        <div className="mx-auto max-w-[760px] text-center">
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#08755e]">
-            Roles
-          </p>
-          <h2
-            id="roles-heading"
-            className="mt-4 text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.055em] text-[#101c24] sm:text-[2.6rem] lg:text-[3.2rem]"
-          >
-            Practice for the role you want
-          </h2>
-          <p className="mx-auto mt-4 max-w-[560px] text-[15px] leading-[1.7] text-[#617079] sm:text-[16px]">
-            Choose from a growing list of interview tracks. Each one is designed
-            around what that role actually tests.
-          </p>
-        </div>
-
-        <div className="mx-auto mt-12 grid max-w-[900px] gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {roles.map((role) => {
-            const Icon = role.icon;
-            return (
-              <div
-                key={role.title}
-                className="group rounded-[20px] border border-[#dceae4] bg-[#f9fbfa] p-6 shadow-[0_10px_30px_rgba(18,61,49,0.04)] transition duration-200 ease-out hover:-translate-y-1 hover:border-[#c9e7dc] hover:shadow-[0_16px_36px_rgba(15,140,108,0.10)]"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-[14px] border border-[#d8efe6] bg-[#e9f7f1] text-[#08755e]">
-                  <Icon className="h-5 w-5" strokeWidth={1.8} aria-hidden="true" />
-                </div>
-                <h3 className="mt-4 text-[1.1rem] font-semibold text-[#181f24]">
-                  {role.title}
-                </h3>
-                <p className="mt-1.5 text-[14px] leading-[1.6] text-[#617079]">
-                  {role.description}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function PricingSection() {
-  const { openSignup } = useAuthModal();
-
-  return (
-    <section
-      id="pricing"
-      aria-labelledby="pricing-heading"
-      className="relative px-5 py-[72px] sm:py-[88px] lg:px-10 lg:py-[110px]"
-    >
-      <div className="mx-auto max-w-[1320px]">
-        <div className="mx-auto max-w-[760px] text-center">
-          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#08755e]">
-            Pricing
-          </p>
-          <h2
-            id="pricing-heading"
-            className="mt-4 text-[2.1rem] font-extrabold leading-[1.05] tracking-[-0.055em] text-[#101c24] sm:text-[2.6rem] lg:text-[3.2rem]"
-          >
-            Start free. Upgrade when you&apos;re ready.
-          </h2>
-          <p className="mx-auto mt-4 max-w-[560px] text-[15px] leading-[1.7] text-[#617079] sm:text-[16px]">
-            Experience Verdant with our free plan. Unlock your full preparation
-            potential with Pro.
-          </p>
-        </div>
-
-        <div className="mx-auto mt-12 grid max-w-[820px] gap-6 md:grid-cols-2">
-          {/* Free tier */}
-          <div className="animate-pricing-in rounded-[24px] border border-[#dceae4] bg-white p-7 shadow-[0_10px_30px_rgba(18,61,49,0.04)] sm:p-8">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[#e9f7f1] text-[#08755e]">
-                <Sparkles className="h-5 w-5" strokeWidth={1.8} />
-              </div>
-              <div>
-                <h3 className="text-[1.25rem] font-semibold text-[#172128]">
-                  Free
-                </h3>
-                <p className="text-[13px] text-[#617079]">Experience Verdant</p>
-              </div>
-            </div>
-
-            <div className="mt-6 flex items-baseline gap-1">
-              <span className="text-[2.5rem] font-extrabold tracking-[-0.04em] text-[#101c24]">
-                ₹0
-              </span>
-              <span className="text-[15px] text-[#617079]">/ forever</span>
-            </div>
-
-            <ul className="mt-6 space-y-3">
-              {[
-                "Limited interviews per month",
-                "Role-based interviews",
-                "Basic AI feedback",
-                "Interview history",
-              ].map((feature) => (
-                <li
-                  key={feature}
-                  className="flex items-start gap-3 text-[15px] text-[#42515a]"
-                >
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#e5f4ee] text-[#08755e]">
-                    <Check className="h-3 w-3" strokeWidth={2.5} />
-                  </span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-
-            <button
-              type="button"
-              onClick={openSignup}
-              className="mt-8 flex w-full items-center justify-center gap-2 rounded-full border border-[#dce5e0] bg-white py-3.5 text-[15px] font-semibold text-[#243038] transition hover:bg-[#f0f5f2]"
-            >
-              Start Free Interview
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
-
-          {/* Pro tier */}
-          <div className="animate-pricing-in relative rounded-[24px] border-2 border-[#08755e] bg-white p-7 shadow-[0_16px_40px_rgba(8,117,94,0.12)] sm:p-8" style={{ animationDelay: "120ms" }}>
-            <div className="absolute -top-3.5 left-6 rounded-full bg-[#08755e] px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white">
-              Launching Soon
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[#08755e] text-white">
-                <Crown className="h-5 w-5" strokeWidth={1.8} />
-              </div>
-              <div>
-                <h3 className="text-[1.25rem] font-semibold text-[#172128]">
-                  Pro
-                </h3>
-                <p className="text-[13px] text-[#617079]">
-                  Get interview-ready
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-6 flex items-baseline gap-1">
-              <span className="text-[1.5rem] font-bold text-[#101c24]">
-                Coming soon
-              </span>
-            </div>
-
-            <ul className="mt-6 space-y-3">
-              {[
-                "Unlimited interviews",
-                "Detailed feedback & scoring",
-                "Resume-based interviews",
-                "Weakness tracking",
-                "Personalized preparation",
-                "Priority access to new features",
-              ].map((feature) => (
-                <li
-                  key={feature}
-                  className="flex items-start gap-3 text-[15px] text-[#42515a]"
-                >
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#e5f4ee] text-[#08755e]">
-                    <Check className="h-3 w-3" strokeWidth={2.5} />
-                  </span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-
-            <button
-              type="button"
-              onClick={openSignup}
-              className="group mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-[#075d4c] py-3.5 text-[15px] font-semibold text-white shadow-[0_9px_22px_rgba(7,93,76,.18)] transition hover:-translate-y-0.5 hover:bg-[#064f41]"
-            >
-              Join Waitlist
-              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-            </button>
           </div>
         </div>
       </div>
@@ -1772,7 +1237,7 @@ function WhoItsForSection() {
             const MiniUI = panel.MiniUI;
             const isActive = index === activeIndex;
             return (
-              <article key={panel.id} style={{ backgroundColor: panel.tint, borderColor: isActive ? "rgba(8,117,94,0.25)" : "#cfe7dc" }} className={`persona-panel relative isolate min-w-0 overflow-hidden rounded-[28px] border ${isActive ? "flex-[3] max-[899px]:h-auto max-[899px]:min-h-[460px]" : "flex-[1] max-[899px]:h-[88px]"} max-[899px]:flex-none ${reducedMotion ? "transition-none" : "transition-[flex,height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"}`} onMouseEnter={() => { if (window.matchMedia("(min-width: 900px)").matches) setActiveIndex(index); }}>
+              <article key={panel.id} style={{ backgroundColor: panel.tint, borderColor: isActive ? "rgba(8,117,94,0.25)" : "#cfe7dc" }} className={`persona-panel relative isolate min-w-0 overflow-hidden rounded-[28px] border ${isActive ? "flex-[3] max-[899px]:h-[700px]" : "flex-[1] max-[899px]:h-[96px]"} max-[899px]:flex-none ${reducedMotion ? "transition-none" : "transition-[flex,height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"}`} onMouseEnter={() => { if (window.matchMedia("(min-width: 900px)").matches) setActiveIndex(index); }}>
                 <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0" style={{ backgroundImage: "radial-gradient(circle, rgba(8,117,94,0.19) 1.5px, transparent 1.6px)", backgroundSize: "16px 16px", maskImage: "radial-gradient(ellipse at center, #000 0%, transparent 78%)" }} />
                 {!isActive && <div aria-hidden="true" className="pointer-events-none absolute bottom-[-28px] right-[-26px] z-[1] text-[#08755e] opacity-[0.11]"><Icon className="h-[140px] w-[140px]" strokeWidth={1.2} /></div>}
                 <button ref={(element) => { panelButtonRefs.current[index] = element; }} type="button" id={`persona-header-${panel.id}`} aria-expanded={isActive} aria-controls={`persona-region-${panel.id}`} aria-label={panel.name} onClick={() => { lastClickedIndexRef.current = index; setActiveIndex(index); }} onFocus={() => setActiveIndex(index)} onKeyDown={(event) => handlePanelKeyDown(event, index)} className={`absolute inset-0 flex flex-col items-start justify-between p-6 text-left outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#08755e] max-[899px]:bottom-auto max-[899px]:h-[96px] max-[899px]:flex-row max-[899px]:items-center max-[899px]:gap-3 max-[899px]:px-4 max-[899px]:py-0 ${isActive ? "z-30" : "z-10"}`}>
@@ -1810,6 +1275,19 @@ function WhoItsForSection() {
     </section>
   );
 }
+
+const faqItems = [
+  { id: "faq-01", category: "Getting started", question: "Who is this platform for?", answer: "Students, job seekers and career switchers who want to practice interviews before the real thing." },
+  { id: "faq-02", category: "Getting started", question: "Do I need any experience to start?", answer: "No. Pick a difficulty level that suits you and build up from there." },
+  { id: "faq-03", category: "Getting started", question: "Is it free to use?", answer: "[Edit this answer to match your plan.]" },
+  { id: "faq-04", category: "Practice and feedback", question: "How are the questions created?", answer: "Questions are generated by AI based on the role and level you choose." },
+  { id: "faq-05", category: "Practice and feedback", question: "How does the feedback work?", answer: "After each answer you see what went well, what was missing and how to improve it." },
+  { id: "faq-06", category: "Practice and feedback", question: "Can I retake a session?", answer: "Yes. You can repeat sessions as often as you like and compare your progress." },
+  { id: "faq-07", category: "Privacy", question: "Is my data private?", answer: "[Edit this answer to match your privacy approach.]" },
+  { id: "faq-08", category: "Privacy", question: "Can I delete my sessions?", answer: "[Edit this answer to match what your product supports.]" },
+];
+
+const faqCategories = ["All", "Getting started", "Practice and feedback", "Privacy"];
 
 interface FAQCardProps {
   item: (typeof faqItems)[number];
@@ -1929,21 +1407,11 @@ function FAQSection() {
   );
 }
 
-// ============================================================
-// Home Component — Updated hero, navbar, CTA, and footer
-// ============================================================
-
 export default function Home() {
   const { openLogin, openSignup } = useAuthModal();
   const { data: session, status } = useSession();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState("");
-
-  useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const targets = navItems
@@ -1968,8 +1436,8 @@ export default function Home() {
     <main className="min-h-screen overflow-x-clip bg-[#f7faf8] text-[#142029]">
       {/* ================= NAVBAR ================= */}
       <header className="sticky top-0 z-50 border-b border-[#dceae4] bg-[#f7faf8]/90 backdrop-blur-[12px]">
-        <div className="mx-auto flex h-[68px] max-w-[1320px] items-center justify-between gap-3 px-5 sm:h-[76px] lg:px-10">
-          <a href="#" className="flex min-w-0 items-center">
+        <div className="mx-auto flex h-[76px] max-w-[1320px] items-center justify-between px-5 lg:px-10">
+          <a href="#" className="flex items-center">
             <Logo size="md" />
           </a>
 
@@ -1979,7 +1447,7 @@ export default function Home() {
                 key={item}
                 href={`#${item.toLowerCase().replaceAll(" ", "-")}`}
                 aria-current={activeNavItem === item ? "location" : undefined}
-                className={`text-sm font-medium transition-colors duration-200 hover:text-[#08755e] ${activeNavItem === item ? "font-semibold text-[#08755e]" : "text-[#45535b]"}`}
+                className={`text-sm font-medium transition hover:text-[#08755e] ${activeNavItem === item ? "font-semibold text-[#08755e]" : "text-[#45535b]"}`}
               >
                 {item}
               </a>
@@ -1999,45 +1467,12 @@ export default function Home() {
               </div>
             ) : (
               <>
-                <button type="button" onClick={openLogin} disabled={status === "loading"} className="hidden h-11 rounded-full border border-[#dce5e0] bg-white px-5 text-sm font-medium text-[#243038] transition duration-200 hover:bg-[#f0f5f2] disabled:opacity-60 sm:block">Log in</button>
-                <button type="button" onClick={openSignup} disabled={status === "loading"} className="h-10 rounded-full bg-[#075d4c] px-3.5 text-[13px] font-semibold text-white shadow-[0_9px_22px_rgba(7,93,76,.18)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#064f41] sm:h-11 sm:px-5 sm:text-sm">
-                  <span className="sm:hidden">Get started</span>
-                  <span className="hidden sm:inline">Start Free Interview</span>
-                </button>
+                <button type="button" onClick={openLogin} disabled={status === "loading"} className="hidden h-11 rounded-full border border-[#dce5e0] bg-white px-5 text-sm font-medium text-[#243038] transition hover:bg-[#f0f5f2] disabled:opacity-60 sm:block">Log in</button>
+                <button type="button" onClick={openSignup} disabled={status === "loading"} className="h-11 rounded-full bg-[#075d4c] px-4 text-sm font-semibold text-white shadow-[0_9px_22px_rgba(7,93,76,.18)] transition hover:-translate-y-0.5 hover:bg-[#064f41] sm:px-5">Get Started</button>
               </>
             )}
-            <button
-              type="button"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileMenuOpen}
-              onClick={() => setMobileMenuOpen((open) => !open)}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#dce5e0] bg-white text-[#243038] transition duration-200 hover:bg-[#f0f5f2] lg:hidden"
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
           </div>
         </div>
-        {mobileMenuOpen && (
-          <div className="border-t border-[#dceae4] bg-[#f7faf8] px-5 py-4 lg:hidden">
-            <nav className="flex flex-col gap-1">
-              {navItems.map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase().replaceAll(" ", "-")}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`rounded-[12px] px-3 py-3 text-sm font-medium transition-colors ${activeNavItem === item ? "bg-[#eaf7f2] text-[#08755e]" : "text-[#45535b] hover:bg-[#edf3f0]"}`}
-                >
-                  {item}
-                </a>
-              ))}
-              {status !== "authenticated" && (
-                <button type="button" onClick={() => { setMobileMenuOpen(false); openLogin(); }} className="mt-2 rounded-[12px] px-3 py-3 text-left text-sm font-medium text-[#243038] hover:bg-[#edf3f0] sm:hidden">
-                  Log in
-                </button>
-              )}
-            </nav>
-          </div>
-        )}
       </header>
 
       {/* ================= HERO ================= */}
@@ -2045,7 +1480,7 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_13%_16%,rgba(107,188,159,.18),transparent_27%),radial-gradient(circle_at_78%_8%,rgba(139,202,181,.17),transparent_23%),linear-gradient(180deg,#f7faf8_0%,#f8fbf9_100%)]" />
 
         <div className="mx-auto max-w-[1320px] px-5 pb-16 pt-10 lg:px-10 lg:pb-24 lg:pt-16">
-          <div className="grid items-start gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
+          <div className="grid items-start gap-14 lg:grid-cols-[1fr_1.05fr]">
             {/* LEFT CONTENT */}
             <div className="pt-4">
               <div className="inline-flex items-center gap-2 rounded-full border border-[#cfe7dc] bg-[#e5f4ee] px-4 py-2 text-sm font-medium text-[#08755e]">
@@ -2053,54 +1488,42 @@ export default function Home() {
                 Practice Today. Perform Tomorrow.
               </div>
 
-              <h1 className="mt-6 max-w-[720px] text-[2.15rem] font-extrabold leading-[1.05] tracking-[-.065em] text-[#101c24] sm:mt-7 sm:text-[3.4rem] md:text-[4.2rem] lg:text-[5.2rem] lg:leading-[.95]">
-                Practice Interviews.
+              <h1 className="mt-7 max-w-[720px] text-[3.4rem] font-extrabold leading-[.95] tracking-[-.065em] text-[#101c24] sm:text-[4.6rem] lg:text-[5.5rem]">
+                Ace Your Next
+                <span className="block">Interview with</span>
                 <span className="block bg-gradient-to-r from-[#08755e] via-[#16a987] to-[#48c9aa] bg-clip-text text-transparent">
-                  Get Interview-Ready.
+                  AI that Feels Real.
                 </span>
               </h1>
 
               <p className="mt-7 max-w-[520px] text-base leading-7 text-[#617079] sm:text-[17px]">
-                Practice realistic AI interviews for your target role, get
-                instant feedback, and know exactly what to improve before the
-                real interview.
+                Verdant is an AI-powered mock interview platform where students
+                can practice for real-world interviews by chat, voice, or
+                video call for any role, anytime.
               </p>
 
-              <div className="mt-7 flex w-full flex-col items-stretch gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
-                <button id="get-started" type="button" onClick={openSignup} className="group inline-flex h-[50px] items-center justify-center gap-3 rounded-full bg-[#075d4c] px-6 text-[15px] font-semibold text-white shadow-[0_14px_28px_rgba(7,93,76,.18)] transition hover:-translate-y-0.5 sm:h-[52px] sm:px-7 sm:text-base">
-                  <span>Start Free Interview</span>
+              <div className="mt-8 flex flex-col items-start gap-4">
+                <button id="get-started" type="button" onClick={openSignup} className="group inline-flex h-[52px] items-center gap-3 rounded-full bg-[#075d4c] px-7 text-base font-semibold text-white shadow-[0_14px_28px_rgba(7,93,76,.18)] transition hover:-translate-y-0.5">
+                  <span>Start Practicing Free</span>
                   <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                 </button>
 
-                <a
-                  href="#how-it-works"
-                  className="inline-flex h-[50px] items-center justify-center gap-2 rounded-full border border-[#dce5e0] bg-white px-5 text-sm font-medium text-[#243038] transition hover:bg-[#f0f5f2] sm:h-auto sm:py-3"
-                >
-                  See How It Works
-                </a>
+                <span className="text-sm italic text-[#68757d]">
+                  No credit card required.
+                </span>
               </div>
-
-              <span className="mt-4 block text-sm text-[#68757d]">
-                No credit card required
-              </span>
 
               <div className="mt-11 grid max-w-[520px] grid-cols-2 gap-4 sm:grid-cols-4">
                 {heroFeatures.map((feature) => {
                   const Icon = feature.icon;
-                  const isComingSoon = 'comingSoon' in feature && feature.comingSoon;
 
                   return (
                     <div
                       key={feature.label}
                       className="group flex flex-col items-center text-center"
                     >
-                      <div className="relative flex h-[60px] w-[60px] items-center justify-center rounded-[16px] border border-[#d8eae2] bg-[#ebf5f0] text-[#08755e] shadow-[inset_0_1px_0_white] transition group-hover:-translate-y-1 group-hover:bg-[#e2f3ec]">
+                      <div className="flex h-[60px] w-[60px] items-center justify-center rounded-[16px] border border-[#d8eae2] bg-[#ebf5f0] text-[#08755e] shadow-[inset_0_1px_0_white] transition group-hover:-translate-y-1 group-hover:bg-[#e2f3ec]">
                         <Icon className="h-5 w-5" strokeWidth={1.45} />
-                        {isComingSoon && (
-                          <span className="absolute -right-1 -top-1 rounded-full bg-[#08755e] px-1.5 py-0.5 text-[8px] font-bold text-white">
-                            Soon
-                          </span>
-                        )}
                       </div>
 
                       <span className="mt-2.5 max-w-[100px] text-[11px] font-bold leading-4 text-[#2f3d46]">
@@ -2113,12 +1536,12 @@ export default function Home() {
             </div>
 
             {/* HERO PRODUCT MOCKUP — Right Side */}
-            <div className="relative min-w-0 overflow-hidden sm:overflow-visible lg:min-h-[720px]">
+            <div className="relative lg:min-h-[720px]">
               {/* Background glow */}
-              <div className="absolute right-[-40px] top-[40px] h-[280px] w-[280px] rounded-full bg-[#dcefe8] opacity-50 blur-[80px] sm:right-[-60px] sm:top-[60px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
+              <div className="absolute right-[-60px] top-[60px] h-[500px] w-[500px] rounded-full bg-[#dcefe8] opacity-50 blur-[120px]" />
 
               {/* Handwritten text — top right */}
-              <div className={`${caveat.className} text-[27px] font-semibold leading-[.9] text-[#56686f] absolute right-0 -top-2 z-30 hidden max-w-[220px] text-right xl:block`}>
+              <div className={`${caveat.className} text-[27px] font-semibold leading-[.9] text-[#56686f] absolute right-0 -top-2 z-30 hidden max-w-[220px] text-right    lg:block `}>
                 Different Roles.
                 <br />
                 Real Conversations.
@@ -2131,19 +1554,19 @@ export default function Home() {
               </div>
 
               {/* Composition wrapper */}
-              <div className="relative pt-2 sm:pt-10 lg:pt-14">
-                {/* Chat Mockup */}
-                <div className="relative z-10 w-full max-w-[420px] rotate-0 sm:inline-block sm:rotate-[1deg]">
+              <div className="relative pt-16 lg:pt-14">
+                {/* Chat Mockup — positioned left */}
+                <div className="relative z-10 inline-block rotate-[1deg]">
                   <ChatMockup />
                 </div>
 
-                {/* Video Mockup */}
-                <div className="relative z-20 mx-auto mt-4 hidden w-fit min-[480px]:block sm:absolute sm:right-2 sm:top-[72px] sm:mx-0 sm:mt-0 md:right-4 lg:right-[-28px] lg:top-[100px] xl:right-[-48px]">
+                {/* Video Mockup — no longer overlapping */}
+                <div className="absolute right-[-50px] top-[100px] z-20 hidden sm:block lg:right-[-60px]">
                   <VideoMockup />
                 </div>
 
                 {/* Feedback Card — below, shifted right */}
-                <div className="relative z-30 mt-4 w-full sm:-mt-3 sm:ml-6 sm:w-[calc(100%-1.5rem)] sm:rotate-[1deg] lg:ml-8 lg:w-[100%]">
+                <div className="relative z-30 -mt-3 ml-8 w-[100%] rotate-[1deg]">
                   <FeedbackCard />
                 </div>
               </div>
@@ -2151,7 +1574,7 @@ export default function Home() {
           </div>
 
           {/* ROLE CHIPS */}
-          <div className="mt-14 border-t border-[#e6ece8] pt-8">
+          <div id="roles" className="mt-14 scroll-mt-[92px] border-t border-[#e6ece8] pt-8">
             <p className="mb-5 text-center text-[11px] font-bold uppercase tracking-[.22em] text-[#899399]">
               Prepare for roles like
             </p>
@@ -2175,22 +1598,23 @@ export default function Home() {
 
       <ProblemSection />
       <HowItWorksSection />
-      <ImprovementLoopSection />
       <FeaturesSection />
-      <DifferentiationSection />
       <WhoItsForSection />
-      <RolesSection />
-      <PricingSection />
       <FAQSection />
 
-      {/* ================= FINAL CTA ================= */}
+      {/* ================= CTA ================= */}
+      {/* ================= CTA ================= */}
       <section className="relative overflow-hidden px-5 py-20 lg:px-10 lg:py-[90px]">
+
         <div className="relative mx-auto max-w-[1250px] overflow-hidden rounded-[25px] border border-[#d7eee5] bg-[#effaf6] px-6 py-[55px] sm:px-10 lg:min-h-[300px] lg:px-20">
 
           {/* Background */}
           <div className="pointer-events-none absolute inset-0">
+
             <div className="absolute left-1/2 top-[-130px] h-[230px] w-[520px] -translate-x-1/2 rounded-full bg-[#e9f8f3] blur-[35px]" />
+
             <div className="absolute left-[-100px] top-[40px] h-[220px] w-[300px] rounded-full bg-[#e5f7f1] blur-[55px]" />
+
             <div className="absolute right-[-100px] top-[30px] h-[230px] w-[320px] rounded-full bg-[#e4f6ef] blur-[55px]" />
 
             <svg
@@ -2202,15 +1626,19 @@ export default function Home() {
                 d="M0 95 C120 30 205 30 320 88 C430 145 515 145 625 95 C735 45 820 42 930 92 C1040 143 1140 142 1250 75 L1250 160 L0 160 Z"
                 fill="#dff5ee"
               />
+
               <path
                 d="M0 125 C130 65 220 62 335 112 C450 162 525 158 635 110 C745 62 825 60 945 112 C1055 158 1150 155 1250 100 L1250 160 L0 160 Z"
                 fill="#e8f8f3"
               />
             </svg>
+
           </div>
+
 
           {/* Handwritten left */}
           <div className="pointer-events-none absolute left-[38px] top-1/2 hidden -translate-y-1/2 -rotate-[8deg] lg:block">
+
             <div className={`${caveat.className} text-[27px] font-semibold leading-[.9] text-[#56686f]`}>
               Practice.
               <br />
@@ -2220,11 +1648,15 @@ export default function Home() {
               <br />
               Repeat.
             </div>
+
             <div className="ml-[38px] mt-2 h-[2px] w-[65px] rotate-[4deg] rounded-full bg-[#48c9aa]" />
+
           </div>
+
 
           {/* Handwritten right */}
           <div className="pointer-events-none absolute right-[38px] top-1/2 hidden translate-y-[-46%] rotate-[7deg] text-right lg:block">
+
             <div className={`${caveat.className} text-[27px] font-semibold leading-[.92] text-[#56686f]`}>
               Better
               <br />
@@ -2234,126 +1666,533 @@ export default function Home() {
               <br />
               Futures.
             </div>
+
             <div className="ml-auto mr-[12px] mt-2 h-[2px] w-[65px] rotate-[-3deg] rounded-full bg-[#48c9aa]" />
+
           </div>
+
 
           {/* CTA */}
           <div className="relative z-10 mx-auto max-w-[780px] text-center">
+
             <p className="text-[10px] font-semibold uppercase tracking-[.19em] text-[#72857f] sm:text-[11px]">
-              Your next step
+              Your Next Opportunity Is Closer Than You Think
             </p>
 
             <h2 className="mt-4 text-[31px] font-extrabold leading-[1.05] tracking-[-.055em] text-[#101c24] sm:text-[39px] lg:text-[42px]">
-              Your next interview starts with{" "}
-              <span className="text-[#08755e]">practice.</span>
+              Start Your Interview Practice{" "}
+              <span className="text-[#08755e]">Today</span>
             </h2>
 
-            <p className="mx-auto mt-3 max-w-[480px] text-[15px] leading-[1.6] text-[#617079]">
-              Don&apos;t wait until interview day to find out what you need to
-              improve.
-            </p>
+            {/* <div className="mt-3 flex items-center justify-center gap-[5px]">
+              <span className="h-[1.5px] w-[20px] rotate-[35deg] rounded-full bg-[#48c9aa]" />
+              <span className="h-[1.5px] w-[12px] rotate-[55deg] rounded-full bg-[#48c9aa]" />
+              <span className="h-[5px] w-[5px] rounded-full bg-[#48c9aa]" />
+              <span className="h-[1.5px] w-[12px] -rotate-[55deg] rounded-full bg-[#48c9aa]" />
+              <span className="h-[1.5px] w-[20px] -rotate-[35deg] rounded-full bg-[#48c9aa]" />
+            </div> */}
 
             <button type="button" onClick={openSignup} className="group mt-6 inline-flex h-[52px] items-center gap-4 rounded-full bg-[#075d4c] px-8 text-[16px] font-semibold text-white shadow-[0_12px_25px_rgba(7,93,76,.19)] transition hover:-translate-y-0.5 hover:bg-[#064f41]">
-              Start Free Interview
+              Get Started for Free
               <ArrowRight className="h-[17px] w-[17px] transition group-hover:translate-x-1" />
             </button>
 
             <p className="mt-3 text-[11px] text-[#72857f]">
               No credit card required.
             </p>
+
           </div>
+
         </div>
       </section>
 
+
+      {/* ================= FOOTER ================= */}
       {/* ================= FOOTER ================= */}
       <footer className="relative overflow-hidden bg-[#fbfdfc]">
 
-        {/* Decorative waves */}
+        {/* =========================================
+      DECORATIVE BACKGROUND WAVES
+  ========================================== */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
+
+          {/* Bottom left main wave */}
           <svg
             className="absolute bottom-[-2px] left-[-5%] h-[240px] w-[55%] min-w-[600px]"
             viewBox="0 0 700 240"
             preserveAspectRatio="none"
             aria-hidden="true"
           >
-            <path d="M0 145 C95 75 170 72 265 125 C350 174 430 180 520 132 C590 94 650 94 700 110 L700 240 L0 240 Z" fill="#e1f5ee" />
-            <path d="M0 180 C110 108 190 108 280 155 C370 201 450 200 535 153 C600 117 660 116 700 130 L700 240 L0 240 Z" fill="#edf9f5" />
+            <path
+              d="
+          M0 145
+          C95 75 170 72 265 125
+          C350 174 430 180 520 132
+          C590 94 650 94 700 110
+          L700 240
+          L0 240
+          Z
+        "
+              fill="#e1f5ee"
+            />
+
+            <path
+              d="
+          M0 180
+          C110 108 190 108 280 155
+          C370 201 450 200 535 153
+          C600 117 660 116 700 130
+          L700 240
+          L0 240
+          Z
+        "
+              fill="#edf9f5"
+            />
           </svg>
 
+
+          {/* Bottom right main wave */}
           <svg
             className="absolute bottom-[-5px] right-[-5%] h-[250px] w-[53%] min-w-[600px]"
             viewBox="0 0 700 250"
             preserveAspectRatio="none"
             aria-hidden="true"
           >
-            <path d="M0 150 C85 88 160 85 250 130 C340 175 420 178 505 128 C595 77 650 78 700 115 L700 250 L0 250 Z" fill="#e2f6ef" />
-            <path d="M0 190 C90 128 170 124 265 165 C355 204 430 208 515 163 C600 118 655 120 700 145 L700 250 L0 250 Z" fill="#eefaf6" />
+            <path
+              d="
+          M0 150
+          C85 88 160 85 250 130
+          C340 175 420 178 505 128
+          C595 77 650 78 700 115
+          L700 250
+          L0 250
+          Z
+        "
+              fill="#e2f6ef"
+            />
+
+            <path
+              d="
+          M0 190
+          C90 128 170 124 265 165
+          C355 204 430 208 515 163
+          C600 118 655 120 700 145
+          L700 250
+          L0 250
+          Z
+        "
+              fill="#eefaf6"
+            />
           </svg>
 
+
+          {/* Top right subtle glow */}
+          {/* <div className="absolute right-[-130px] top-[-130px] h-[300px] w-[450px] rounded-full bg-[#effaf7]" /> */}
+
+          {/* Bottom glow */}
           <div className="absolute bottom-[-100px] left-1/2 h-[250px] w-[700px] -translate-x-1/2 rounded-full bg-[#f0faf7] blur-[40px]" />
         </div>
 
+
+        {/* =========================================
+      FOOTER CONTAINER
+  ========================================== */}
         <div className="relative mx-auto max-w-[1320px] px-5 lg:px-10">
+
+          {/* Top divider */}
           <div className="border-t border-[#dcebe5]" />
 
-          <div className="grid gap-12 border-b border-[#e1ece7] py-12 md:grid-cols-2 lg:grid-cols-[1.55fr_1fr_1fr_1fr] lg:gap-8 lg:py-14">
 
-            {/* Brand */}
+          {/* =====================================
+        FOOTER MAIN GRID
+    ====================================== */}
+          <div className="grid gap-12 border-b border-[#e1ece7] py-12 md:grid-cols-2 lg:grid-cols-[1.55fr_1fr_1fr_1fr_1.45fr] lg:gap-8 lg:py-14">
+
+
+            {/* =================================
+          BRAND
+      ================================== */}
             <div>
-              <a href="#" className="inline-block">
+
+              <a
+                href="#"
+                className="inline-block"
+              >
                 <Logo size="footer" />
               </a>
+
 
               <p className="mt-4 text-[14px] font-medium text-[#667980]">
                 Practice today. Perform tomorrow.
               </p>
 
+
               <p className="mt-3 max-w-[285px] text-[14px] leading-[1.7] text-[#718087]">
-                AI-powered mock interview platform that helps you practice,
-                get feedback, and improve before real interviews.
+                AI-powered mock interview platform for students to build confidence,
+                improve skills, and land their dream opportunities.
               </p>
-            </div>
 
-            {/* Product */}
-            <div>
-              <h3 className="text-[14px] font-bold text-[#17242c]">Product</h3>
-              <div className="mt-5 space-y-[11px] text-[14px] text-[#718087]">
-                <a href="#features" className="block transition-colors duration-200 hover:text-[#08755e]">Features</a>
-                <a href="#how-it-works" className="block transition-colors duration-200 hover:text-[#08755e]">How it Works</a>
-                <a href="#pricing" className="block transition-colors duration-200 hover:text-[#08755e]">Pricing</a>
-                <a href="#faq" className="block transition-colors duration-200 hover:text-[#08755e]">FAQ</a>
+
+              {/* =================================
+            SOCIAL MEDIA ICONS
+        ================================== */}
+              <div className="mt-6 flex items-center gap-[10px]">
+
+                {/* LinkedIn */}
+                <a
+                  href="#"
+                  aria-label="LinkedIn"
+                  className="group flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-[#eaf7f2] text-[#2d5f54] transition-all duration-200 hover:-translate-y-1 hover:bg-[#d8f1e8]"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                </a>
+
+
+                {/* Twitter / X */}
+                <a
+                  href="#"
+                  aria-label="Twitter"
+                  className="group flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-[#eaf7f2] text-[#2d5f54] transition-all duration-200 hover:-translate-y-1 hover:bg-[#d8f1e8]"
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                  </svg>
+                </a>
+
+
+                {/* Instagram */}
+                <a
+                  href="#"
+                  aria-label="Instagram"
+                  className="group flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-[#eaf7f2] text-[#2d5f54] transition-all duration-200 hover:-translate-y-1 hover:bg-[#d8f1e8]"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                  </svg>
+                </a>
+
+
+                {/* YouTube */}
+                <a
+                  href="#"
+                  aria-label="YouTube"
+                  className="group flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-[#eaf7f2] text-[#2d5f54] transition-all duration-200 hover:-translate-y-1 hover:bg-[#d8f1e8]"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </a>
+
+
+                {/* GitHub */}
+                <a
+                  href="#"
+                  aria-label="GitHub"
+                  className="group flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-[#eaf7f2] text-[#2d5f54] transition-all duration-200 hover:-translate-y-1 hover:bg-[#d8f1e8]"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-.63A9.935 9.935 0 0024 4.59z" />
+                  </svg>
+                </a>
+
               </div>
             </div>
 
-            {/* Company */}
+
+            {/* =================================
+          PRODUCT
+      ================================== */}
             <div>
-              <h3 className="text-[14px] font-bold text-[#17242c]">Company</h3>
+
+              <h3 className="text-[14px] font-bold text-[#17242c]">
+                Product
+              </h3>
+
               <div className="mt-5 space-y-[11px] text-[14px] text-[#718087]">
-                <a href="#" className="block transition-colors duration-200 hover:text-[#08755e]">About</a>
-                <a href="#" className="block transition-colors duration-200 hover:text-[#08755e]">Contact</a>
+
+                <a
+                  href="#features"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Features
+                </a>
+
+                <a
+                  href="#roles"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Roles
+                </a>
+
+                <a
+                  href="#how-it-works"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  How it Works
+                </a>
+
+                <a
+                  href="#pricing"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Pricing
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  For Students
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  For Educators
+                </a>
+
               </div>
             </div>
 
-            {/* Legal */}
+
+            {/* =================================
+          COMPANY
+      ================================== */}
             <div>
-              <h3 className="text-[14px] font-bold text-[#17242c]">Legal</h3>
+
+              <h3 className="text-[14px] font-bold text-[#17242c]">
+                Company
+              </h3>
+
               <div className="mt-5 space-y-[11px] text-[14px] text-[#718087]">
-                <a href="/privacy" className="block transition-colors duration-200 hover:text-[#08755e]">Privacy Policy</a>
-                <a href="/terms" className="block transition-colors duration-200 hover:text-[#08755e]">Terms of Service</a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  About Us
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Our Mission
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Careers
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Blog
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Press
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Contact
+                </a>
+
               </div>
             </div>
+
+
+            {/* =================================
+          RESOURCES
+      ================================== */}
+            <div>
+
+              <h3 className="text-[14px] font-bold text-[#17242c]">
+                Resources
+              </h3>
+
+              <div className="mt-5 space-y-[11px] text-[14px] text-[#718087]">
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Interview Tips
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Resume Guide
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Sample Questions
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Success Stories
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Help Center
+                </a>
+
+                <a
+                  href="#"
+                  className="block transition-colors duration-200 hover:text-[#08755e]"
+                >
+                  Community
+                </a>
+
+              </div>
+            </div>
+
+
+            {/* =================================
+          NEWSLETTER
+      ================================== */}
+            <div className="border-l border-[#e3eee9] pl-7">
+
+              <h3 className="text-[14px] font-bold text-[#17242c]">
+                Stay in the Loop
+              </h3>
+
+              <p className="mt-2 max-w-[240px] text-[14px] leading-[1.65] text-[#718087]">
+                Get the latest updates, interview tips, and product news.
+              </p>
+
+
+              <div className="mt-5 flex h-[54px] overflow-hidden rounded-full border border-[#dce9e3] bg-white p-[4px] shadow-[0_4px_15px_rgba(20,70,55,.035)]">
+
+                <input
+                  type="email"
+                  aria-label="Email address"
+                  placeholder="Enter your email"
+                  className="min-w-0 flex-1 bg-transparent px-4 text-[13px] text-[#52676d] outline-none placeholder:text-[#9aa9aa]"
+                />
+
+                <button
+                  aria-label="Subscribe"
+                  className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full bg-[#075d4c] text-white transition-all duration-200 hover:bg-[#064f41] hover:shadow-[0_6px_15px_rgba(7,93,76,.18)]"
+                >
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                  </svg>
+                </button>
+
+              </div>
+
+              <p className="mt-3 text-[11px] text-[#8b9a9b]">
+                No spam. Just valuable updates.
+              </p>
+
+            </div>
+
           </div>
 
-          {/* Bottom bar */}
+
+          {/* =====================================
+        BOTTOM BAR
+    ====================================== */}
           <div className="relative z-10 flex flex-col justify-between gap-5 py-6 text-[12px] text-[#899399] sm:flex-row sm:items-center">
-            <span>© 2026 Verdant. All rights reserved.</span>
+
+            <span>
+              © 2026 Verdant. All rights reserved.
+            </span>
+
+
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+
+              <a
+                href="#"
+                className="transition-colors hover:text-[#08755e]"
+              >
+                Privacy Policy
+              </a>
+
+              <a
+                href="#"
+                className="transition-colors hover:text-[#08755e]"
+              >
+                Terms of Service
+              </a>
+
+              <a
+                href="#"
+                className="transition-colors hover:text-[#08755e]"
+              >
+                Cookie Policy
+              </a>
+
+            </div>
+
+
             <span className="flex items-center gap-2">
               <span className="h-5 w-px bg-[#dce9e3]" />
               Built for dreamers, by believers.
               <span className="ml-0.5">💚</span>
             </span>
+
           </div>
+
         </div>
+
+
+        {/* =========================================
+      BOTTOM RIGHT HANDWRITTEN NOTE
+  ========================================== */}
+        <div className="pointer-events-none absolute bottom-[20px] right-[38px] hidden rotate-[5deg] xl:block">
+
+          <div className={`${caveat.className} text-[27px] font-semibold leading-[.9] text-[#56686f] `}>
+            Same
+            <br />
+            Students.
+            <br />
+            Brighter
+            <br />
+            Tomorrows.
+          </div>
+
+          <svg
+            className="ml-[28px] mt-2 h-[22px] w-[65px]"
+            viewBox="0 0 65 22"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M2 11C15 5 31 5 47 9C54 11 59 13 63 16"
+              stroke="#48c9aa"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+          </svg>
+
+        </div>
+
       </footer>
 
     </main>

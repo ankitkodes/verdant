@@ -40,7 +40,7 @@ export function SocialButtons({ mode, onError }: SocialButtonsProps) {
                         aria-label={`${mode === "login" ? "Continue with" : "Sign up with"} ${provider.label}`}
                         disabled={Boolean(pendingProvider)}
                         onClick={() => handleSignIn(provider.id)}
-                        className="flex h-12 min-w-0 items-center justify-center gap-2 rounded-[10px] border border-[#dce5e0] bg-white px-2 text-[14px] font-medium text-[#243038] transition hover:bg-[#f0f5f2] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#08755e]/15 disabled:cursor-wait disabled:opacity-60"
+                        className="flex h-11 min-w-0 items-center justify-center gap-1.5 rounded-[12px] border border-[#dce5e0] bg-white px-1.5 text-[12px] font-medium text-[#243038] transition duration-200 hover:border-[#c8e4d8] hover:bg-[#f7faf8] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#08755e]/15 disabled:cursor-wait disabled:opacity-60 sm:h-12 sm:gap-2 sm:px-2 sm:text-[13px]"
                     >
                         <span className="flex h-5 w-5 shrink-0 items-center justify-center" aria-hidden="true">
                             {pending ? (
@@ -51,11 +51,10 @@ export function SocialButtons({ mode, onError }: SocialButtonsProps) {
                                 </svg>
                             )}
                         </span>
-                        <span className="hidden whitespace-nowrap min-[861px]:inline">{provider.label}</span>
+                        <span className="truncate">{provider.label}</span>
                     </button>
                 );
             })}
         </div>
     );
 }
-

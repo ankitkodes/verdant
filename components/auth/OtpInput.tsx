@@ -35,7 +35,7 @@ export function OtpInput({ value, onChange, hasError }: OtpInputProps) {
     };
 
     return (
-        <div className="flex justify-between gap-2" role="group" aria-label="Six-digit verification code">
+        <div className="flex justify-between gap-1.5 sm:gap-2" role="group" aria-label="Six-digit verification code">
             {value.map((digit, index) => (
                 <input
                     key={index}
@@ -50,7 +50,7 @@ export function OtpInput({ value, onChange, hasError }: OtpInputProps) {
                     pattern="[0-9]*"
                     maxLength={1}
                     aria-label={`Verification digit ${index + 1}`}
-                    className={`h-[56px] w-[52px] flex-none rounded-[10px] border bg-white text-center text-[22px] font-semibold text-[#172128] outline-none transition focus:border-[#08755e] focus:ring-[3px] focus:ring-[#08755e]/15 ${hasError ? "border-[#b54747]" : "border-[#dce5e0]"}`}
+                    className={`h-12 w-auto min-w-0 flex-1 rounded-[12px] border bg-white text-center text-[20px] font-semibold text-[#172128] outline-none transition duration-200 focus:border-[#08755e] focus:ring-[3px] focus:ring-[#08755e]/15 sm:h-[52px] sm:max-w-[52px] sm:flex-none sm:text-[22px] ${hasError ? "border-[#b54747]" : "border-[#dce5e0]"}`}
                 />
             ))}
         </div>

@@ -57,7 +57,7 @@ export function VerifyEmailForm({ email, onEditEmail, onVerified }: VerifyEmailF
     };
 
     return (
-        <div className="mx-auto flex w-full max-w-[360px] flex-col justify-center">
+        <div className="mx-auto flex w-full max-w-[380px] flex-col justify-center pb-2">
             {success ? (
                 <div className="py-8 text-center" role="status">
                     <span className="mx-auto flex h-14 w-14 animate-auth-success items-center justify-center rounded-full bg-[#eaf7f2] text-[#08755e]">
@@ -69,7 +69,7 @@ export function VerifyEmailForm({ email, onEditEmail, onVerified }: VerifyEmailF
                 </div>
             ) : (
                 <>
-                    <h2 id="auth-modal-title" className="text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#101c24]">
+                    <h2 id="auth-modal-title" className="text-[24px] font-bold leading-[1.15] tracking-[-0.03em] text-[#101c24] sm:text-[28px]">
                         Check your email
                     </h2>
                     <p className="mt-1 text-[15px] leading-[1.4] text-[#617079]">

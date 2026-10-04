@@ -92,7 +92,7 @@ export function SignupForm({ draft, onDraftChange, onLogin, onRegistered }: Sign
         : Number(passwordRules.length) + Number(passwordRules.letter) + Number(passwordRules.number) + Number(draft.password.length >= 12);
 
     return (
-        <div className="mx-auto flex w-full max-w-[360px] flex-col justify-center">
+        <div className="mx-auto flex w-full max-w-[380px] flex-col justify-center pb-2">
             {/* Step Indicator */}
             <div className="mb-4">
                 <div className="flex items-center justify-between text-[12px] font-medium text-[#72878d]">
@@ -109,7 +109,7 @@ export function SignupForm({ draft, onDraftChange, onLogin, onRegistered }: Sign
                 </div>
             </div>
 
-            <h2 id="auth-modal-title" className="text-[28px] font-bold leading-[1.1] tracking-[-0.02em] text-[#101c24]">
+            <h2 id="auth-modal-title" className="text-[24px] font-bold leading-[1.15] tracking-[-0.03em] text-[#101c24] sm:text-[28px]">
                 Create your account
             </h2>
             <p className="mt-1 text-[15px] leading-[1.4] text-[#617079]">

@@ -16,9 +16,22 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Verdant — AI Mock Interview Platform",
+  title: "Verdant — AI Mock Interviews That Help You Get Interview-Ready",
   description:
-    "Practice real-world interviews with AI through chat, voice, and video.",
+    "Practice realistic AI mock interviews, get instant feedback, identify your weaknesses, and prepare with confidence for your next interview.",
+  openGraph: {
+    title: "Verdant — AI Mock Interviews That Help You Get Interview-Ready",
+    description:
+      "Practice realistic AI mock interviews, get instant feedback, identify your weaknesses, and prepare with confidence for your next interview.",
+    type: "website",
+    siteName: "Verdant",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Verdant — AI Mock Interviews That Help You Get Interview-Ready",
+    description:
+      "Practice realistic AI mock interviews, get instant feedback, identify your weaknesses, and prepare with confidence for your next interview.",
+  },
 };
 
 export default function RootLayout({
