@@ -220,45 +220,27 @@ function Logo({
   };
 
   const current = sizes[size];
-  const reactId = useId();
-  const iconId = `verdantLogo_${size}_${reactId.replace(/:/g, '')}`;
 
   return (
     <div className={`inline-flex items-center gap-2 ${current.wrapper} ${className}`}>
       <svg
         width={current.icon}
         height={current.icon}
-        viewBox="0 0 64 64"
+        viewBox="0 0 223 184"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-label="Verdant logo"
         className="shrink-0"
       >
-        <defs>
-          <linearGradient id={`${iconId}_light`} x1="8" y1="8" x2="36" y2="56" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#6BC9A7" />
-            <stop offset="1" stopColor="#45C9AA" />
-          </linearGradient>
-          <linearGradient id={`${iconId}_dark`} x1="36" y1="6" x2="36" y2="56" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#0B806B" />
-            <stop offset="1" stopColor="#075D4C" />
-          </linearGradient>
-        </defs>
-
-        {/* Left arm of V — lighter green */}
+        {/* Left arm — light mint */}
         <path
-          d="M8 10C8 7.8 9.8 6 12 6H22C24.5 6 26.7 7.4 27.8 9.6L40 34L32 50L10 10.5C9.2 9 8 10 8 10Z"
-          fill={`url(#${iconId}_light)`}
+          d="M 26.3,29.2 Q 22.0,18.0 34.0,18.2 L 66.0,18.8 Q 78.0,19.0 82.8,30.0 L 137.2,154.0 Q 142.0,165.0 130.0,164.4 L 90.0,162.6 Q 78.0,162.0 73.7,150.8 Z"
+          fill="#83DDC5"
         />
+        {/* Right arm — dark teal */}
         <path
-          d="M8.5 8.5C8.5 7 9.8 5.8 11.5 5.8H22.5C24.8 5.8 26.8 7.2 28 9.3L41 35.5L32 52.5L9 9.5C8.5 8.5 8.5 8.5 8.5 8.5Z"
-          fill={`url(#${iconId}_light)`}
-        />
-
-        {/* Right arm of V — darker teal */}
-        <path
-          d="M36 6H52C54.5 6 56 8.5 55 10.8L37 48C35.5 51 31.5 51 30 48L24 36L36 6Z"
-          fill={`url(#${iconId}_dark)`}
+          d="M 144.2,29.6 Q 150.0,19.0 162.0,19.6 L 198.0,21.4 Q 210.0,22.0 205.2,33.0 L 160.8,134.0 Q 156.0,145.0 150.2,134.5 L 124.8,88.5 Q 119.0,78.0 124.6,67.4 Z"
+          fill="#0B705F"
         />
       </svg>
 
@@ -1999,10 +1981,9 @@ export default function Home() {
               </div>
             ) : (
               <>
-                <button type="button" onClick={openLogin} disabled={status === "loading"} className="hidden h-11 rounded-full border border-[#dce5e0] bg-white px-5 text-sm font-medium text-[#243038] transition duration-200 hover:bg-[#f0f5f2] disabled:opacity-60 sm:block">Log in</button>
-                <button type="button" onClick={openSignup} disabled={status === "loading"} className="h-10 rounded-full bg-[#075d4c] px-3.5 text-[13px] font-semibold text-white shadow-[0_9px_22px_rgba(7,93,76,.18)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#064f41] sm:h-11 sm:px-5 sm:text-sm">
-                  <span className="sm:hidden">Get started</span>
-                  <span className="hidden sm:inline">Start Free Interview</span>
+                <button type="button" onClick={openLogin} disabled={status === "loading"} className="hidden h-11 rounded-full border border-[#dce5e0] bg-white px-5 text-sm font-medium text-[#243038] transition duration-200 hover:bg-[#f0f5f2] disabled:opacity-60 lg:block">Log in</button>
+                <button type="button" onClick={openSignup} disabled={status === "loading"} className="hidden h-11 rounded-full bg-[#075d4c] px-5 text-sm font-semibold text-white shadow-[0_9px_22px_rgba(7,93,76,.18)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#064f41] lg:block">
+                  Start Free Interview
                 </button>
               </>
             )}
@@ -2031,9 +2012,14 @@ export default function Home() {
                 </a>
               ))}
               {status !== "authenticated" && (
-                <button type="button" onClick={() => { setMobileMenuOpen(false); openLogin(); }} className="mt-2 rounded-[12px] px-3 py-3 text-left text-sm font-medium text-[#243038] hover:bg-[#edf3f0] sm:hidden">
-                  Log in
-                </button>
+                <>
+                  <button type="button" onClick={() => { setMobileMenuOpen(false); openLogin(); }} className="mt-2 rounded-[12px] px-3 py-3 text-left text-sm font-medium text-[#243038] hover:bg-[#edf3f0]">
+                    Log in
+                  </button>
+                  <button type="button" onClick={() => { setMobileMenuOpen(false); openSignup(); }} className="mt-1 rounded-[12px] bg-[#075d4c] px-3 py-3 text-center text-sm font-semibold text-white transition duration-200 hover:bg-[#064f41]">
+                    Get Started
+                  </button>
+                </>
               )}
             </nav>
           </div>

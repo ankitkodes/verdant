@@ -38,9 +38,15 @@ const brandCopy = {
 function BrandLogo({ theme = "light" }: { theme?: "light" | "dark" }) {
     return (
         <div className={`flex items-center gap-2.5 ${theme === "dark" ? "text-[#101c24]" : "text-white"}`}>
-            <svg viewBox="0 0 64 64" className="h-8 w-8 shrink-0" fill="none" aria-hidden="true">
-                <path d="M8 8h13l17 34-8 15L8 8Z" fill={theme === "dark" ? "#075d4c" : "white"} />
-                <path d="M36 7h17L35 50c-2 4-8 4-10 0l-5-10L36 7Z" fill={theme === "dark" ? "#08755e" : "white"} />
+            <svg viewBox="0 0 223 184" className="h-8 w-8 shrink-0" fill="none" aria-hidden="true">
+                <path
+                    d="M 26.3,29.2 Q 22.0,18.0 34.0,18.2 L 66.0,18.8 Q 78.0,19.0 82.8,30.0 L 137.2,154.0 Q 142.0,165.0 130.0,164.4 L 90.0,162.6 Q 78.0,162.0 73.7,150.8 Z"
+                    fill={theme === "dark" ? "#075d4c" : "#83DDC5"}
+                />
+                <path
+                    d="M 144.2,29.6 Q 150.0,19.0 162.0,19.6 L 198.0,21.4 Q 210.0,22.0 205.2,33.0 L 160.8,134.0 Q 156.0,145.0 150.2,134.5 L 124.8,88.5 Q 119.0,78.0 124.6,67.4 Z"
+                    fill={theme === "dark" ? "#08755e" : "#0B705F"}
+                />
             </svg>
             <span className="text-[20px] font-bold tracking-[-0.04em]">Verdant</span>
         </div>
