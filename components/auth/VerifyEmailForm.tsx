@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Check, TriangleAlert } from "lucide-react";
 import { resendVerificationCode, verifyEmailCode } from "@/lib/auth-client";
 import { OtpInput } from "./OtpInput";
+import { useToast } from "@/components/ui/Toast";
 
 interface VerifyEmailFormProps {
     email: string;
@@ -12,6 +13,7 @@ interface VerifyEmailFormProps {
 }
 
 export function VerifyEmailForm({ email, onEditEmail, onVerified }: VerifyEmailFormProps) {
+    const { toast, dismiss } = useToast();
     const [digits, setDigits] = useState(Array.from({ length: 6 }, () => ""));
     const [error, setError] = useState("");
     const [pending, setPending] = useState(false);
@@ -30,12 +32,17 @@ export function VerifyEmailForm({ email, onEditEmail, onVerified }: VerifyEmailF
         if (!completeCode || pending) return;
         setPending(true);
         setError("");
+        const toastId = toast({ message: "Verifying...", type: "loading" });
         try {
             await verifyEmailCode(email, digits.join(""));
             setSuccess(true);
+            dismiss(toastId);
+            toast({ message: "Email verified! Welcome to Verdant.", type: "success" });
             window.setTimeout(onVerified, 700);
         } catch {
             setError("That code isn't correct. Try again.");
+            dismiss(toastId);
+            toast({ message: "That code isn't correct. Try again.", type: "error" });
             setPending(false);
         }
     };
@@ -44,13 +51,18 @@ export function VerifyEmailForm({ email, onEditEmail, onVerified }: VerifyEmailF
         if (countdown > 0 || pending || resends >= 3) return;
         setPending(true);
         setError("");
+        const toastId = toast({ message: "Resending code...", type: "loading" });
         try {
             await resendVerificationCode(email);
             setResends((count) => count + 1);
             setCountdown(30);
             setDigits(Array.from({ length: 6 }, () => ""));
+            dismiss(toastId);
+            toast({ message: "Verification code resent!", type: "success" });
         } catch {
             setError("We couldn't resend the code just now. Please try again.");
+            dismiss(toastId);
+            toast({ message: "We couldn't resend the code just now.", type: "error" });
         } finally {
             setPending(false);
         }

@@ -6,6 +6,7 @@ import { registerWithCredentials } from "@/lib/auth-client";
 import { validateEmailAddress } from "@/lib/email-validation";
 import { EmailField } from "./EmailField";
 import { SocialButtons } from "./SocialButtons";
+import { useToast } from "@/components/ui/Toast";
 
 export interface SignupDraft {
     name: string;
@@ -23,6 +24,7 @@ interface SignupFormProps {
 }
 
 export function SignupForm({ draft, onDraftChange, onLogin, onRegistered }: SignupFormProps) {
+    const { toast, dismiss } = useToast();
     const [step, setStep] = useState<1 | 2>(1);
     const [nameError, setNameError] = useState("");
     const [emailError, setEmailError] = useState("");
@@ -77,11 +79,16 @@ export function SignupForm({ draft, onDraftChange, onLogin, onRegistered }: Sign
         if (nextNameError || validation.error || validation.suggestion || nextPasswordError) return;
 
         setPending(true);
+        const toastId = toast({ message: "Creating your account...", type: "loading" });
         try {
             await registerWithCredentials({ name: draft.name.trim(), email: draft.email.trim(), password: draft.password });
+            dismiss(toastId);
+            toast({ message: "Verification email sent! Check your inbox.", type: "success" });
             onRegistered(draft.email.trim());
         } catch {
             setFormError("We couldn't create your account just now. Please try again.");
+            dismiss(toastId);
+            toast({ message: "We couldn't create your account just now.", type: "error" });
         } finally {
             setPending(false);
         }
@@ -94,7 +101,7 @@ export function SignupForm({ draft, onDraftChange, onLogin, onRegistered }: Sign
     return (
         <div className="mx-auto flex w-full max-w-[380px] flex-col justify-center pb-2">
             {/* Step Indicator */}
-            <div className="mb-4">
+            <div className="mb-4 pr-12">
                 <div className="flex items-center justify-between text-[12px] font-medium text-[#72878d]">
                     <span>Step {step} of 2</span>
                     {step === 2 && (

@@ -28,7 +28,8 @@ import {
   X,
   Zap,
 } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "@/components/auth/AppProviders";
+import { logout } from "@/lib/auth-client";
 import { useAuthModal } from "@/components/auth/AuthModalProvider";
 import { Caveat } from "next/font/google";
 
@@ -1972,11 +1973,11 @@ export default function Home() {
             {status === "authenticated" && session?.user ? (
               <div className="relative">
                 <button type="button" aria-label="Open account menu" aria-expanded={userMenuOpen} onClick={() => setUserMenuOpen((open) => !open)} className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-[#dce5e0] bg-[#eaf7f2] text-sm font-semibold text-[#08755e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#08755e]/35">
-                  {session.user.image ? <img src={session.user.image} alt="" className="h-full w-full object-cover" /> : <span>{(session.user.name ?? session.user.email ?? "V").trim().slice(0, 1).toUpperCase()}</span>}
+                  {session.user.user_metadata?.avatar_url ? <img src={session.user.user_metadata.avatar_url} alt="" className="h-full w-full object-cover" /> : <span>{(session.user.user_metadata?.full_name ?? session.user.email ?? "V").trim().slice(0, 1).toUpperCase()}</span>}
                 </button>
                 {userMenuOpen && <div className="absolute right-0 top-12 z-50 w-44 rounded-[16px] border border-[#dce5e0] bg-white p-1.5 shadow-[0_12px_30px_rgba(17,74,58,0.12)]">
                   <a href="/dashboard" className="block rounded-[11px] px-3 py-2.5 text-sm font-medium text-[#243038] hover:bg-[#f0f5f2]">Dashboard</a>
-                  <button type="button" onClick={() => signOut({ callbackUrl: "/" })} className="block w-full rounded-[11px] px-3 py-2.5 text-left text-sm font-medium text-[#52636a] hover:bg-[#f0f5f2]">Log out</button>
+                  <button type="button" onClick={async () => { await logout(); window.location.href = "/"; }} className="block w-full rounded-[11px] px-3 py-2.5 text-left text-sm font-medium text-[#52636a] hover:bg-[#f0f5f2]">Log out</button>
                 </div>}
               </div>
             ) : (

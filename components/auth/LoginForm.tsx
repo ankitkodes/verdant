@@ -7,9 +7,11 @@ import { loginWithCredentials, requestPasswordReset } from "@/lib/auth-client";
 import { validateEmailAddress } from "@/lib/email-validation";
 import { EmailField } from "./EmailField";
 import { SocialButtons } from "./SocialButtons";
+import { useToast } from "@/components/ui/Toast";
 
-export function LoginForm({ onSignup }: { onSignup: () => void }) {
+export function LoginForm({ onSignup, onVerifyEmail }: { onSignup: () => void; onVerifyEmail: (email: string) => void }) {
     const router = useRouter();
+    const { toast, dismiss } = useToast();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -35,11 +37,21 @@ export function LoginForm({ onSignup }: { onSignup: () => void }) {
         }
 
         setPending(true);
+        const toastId = toast({ message: "Logging in...", type: "loading" });
         try {
             await loginWithCredentials(email.trim(), password);
+            dismiss(toastId);
+            toast({ message: "Logged in successfully!", type: "success" });
             router.push("/dashboard");
-        } catch {
-            setFormError("We couldn't log you in. Check your details and try again.");
+        } catch (error: any) {
+            dismiss(toastId);
+            if (error?.message === "Email not confirmed") {
+                toast({ message: "Please verify your email to continue.", type: "info" });
+                onVerifyEmail(email.trim());
+            } else {
+                setFormError("We couldn't log you in. Check your details and try again.");
+                toast({ message: "We couldn't log you in. Check your details and try again.", type: "error" });
+            }
         } finally {
             setPending(false);
         }
@@ -53,11 +65,16 @@ export function LoginForm({ onSignup }: { onSignup: () => void }) {
         }
         setPending(true);
         setFormError("");
+        const toastId = toast({ message: "Requesting reset...", type: "loading" });
         try {
             await requestPasswordReset(email.trim());
             setResetMessage("If an account exists for this email, reset instructions will be sent.");
+            dismiss(toastId);
+            toast({ message: "Reset instructions sent!", type: "success" });
         } catch {
             setFormError("We couldn't request a reset right now. Please try again.");
+            dismiss(toastId);
+            toast({ message: "We couldn't request a reset right now.", type: "error" });
         } finally {
             setPending(false);
         }

@@ -136,6 +136,11 @@ export function AuthModal({ mode, onModeChange, onClose, onVerified }: AuthModal
         };
     }, [mode, onClose]);
 
+    const handleVerifyEmail = (email: string) => {
+        setVerificationEmail(email);
+        onModeChange("verify");
+    };
+
     const handleRegistered = (email: string) => {
         setVerificationEmail(email);
         onModeChange("verify");
@@ -192,7 +197,7 @@ export function AuthModal({ mode, onModeChange, onClose, onVerified }: AuthModal
                     </div>
 
                     <div key={mode} className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 animate-auth-form">
-                        {mode === "login" && <LoginForm onSignup={() => onModeChange("signup")} />}
+                        {mode === "login" && <LoginForm onSignup={() => onModeChange("signup")} onVerifyEmail={handleVerifyEmail} />}
                         {mode === "signup" && (
                             <SignupForm
                                 draft={signupDraft}
