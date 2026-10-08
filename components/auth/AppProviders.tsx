@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { User, Session } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import { isEmailVerified } from "@/lib/auth-utils";
 import { AuthModalProvider } from "./AuthModalProvider";
 
 interface AuthContextType {
@@ -25,19 +26,41 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
     const supabase = createClient();
 
     useEffect(() => {
+        const applySession = async (nextSession: Session | null, event?: string) => {
+            const nextUser = nextSession?.user ?? null;
+            if (nextUser && !isEmailVerified(nextUser)) {
+                await supabase.auth.signOut();
+                setSession(null);
+                setUser(null);
+                setIsLoading(false);
+                return;
+            }
+
+            setSession(nextSession);
+            setUser(nextUser);
+            setIsLoading(false);
+
+            if (event === "SIGNED_IN" && nextUser) {
+                fetch("/api/auth/sync", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email: nextUser.email,
+                        name: nextUser.user_metadata?.full_name || nextUser.user_metadata?.name,
+                        provider: nextUser.app_metadata?.provider || "email",
+                    }),
+                }).catch(() => undefined);
+            }
+        };
+
         const {
             data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session);
-            setUser(session?.user ?? null);
-            setIsLoading(false);
+        } = supabase.auth.onAuthStateChange((event, nextSession) => {
+            void applySession(nextSession, event);
         });
 
-        // Initialize state
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session);
-            setUser(session?.user ?? null);
-            setIsLoading(false);
+        supabase.auth.getSession().then(({ data: { session: nextSession } }) => {
+            void applySession(nextSession);
         });
 
         return () => subscription.unsubscribe();

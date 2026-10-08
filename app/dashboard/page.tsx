@@ -21,7 +21,9 @@ export default function Dashboard() {
     if (!user) {
         return null; // Handled by proxy.ts
     }
-
+    function onpress() {
+        router.push("/dashboard/interview")
+    }
     const handleLogout = async () => {
         const toastId = toast({ message: "Logging out...", type: "loading" });
         await logout();
@@ -59,10 +61,10 @@ export default function Dashboard() {
                     <p className="mt-2 text-[#617079]">
                         Choose an interview module below to start your mock interview. (More coming soon!)
                     </p>
-                    
+
                     <div className="mt-6 flex flex-wrap gap-4">
-                        <button className="rounded-xl border border-[#dceae4] bg-[#f9fbfa] px-6 py-4 font-medium transition hover:border-[#c9e7dc] hover:shadow-md">
-                            Software Engineering
+                        <button className="rounded-xl border border-[#dceae4] bg-[#f9fbfa] px-6 py-4 font-medium transition hover:border-[#c9e7dc] hover:shadow-md" onClick={onpress}>
+                            Start Interview
                         </button>
                         <button className="rounded-xl border border-[#dceae4] bg-[#f9fbfa] px-6 py-4 font-medium transition hover:border-[#c9e7dc] hover:shadow-md">
                             Product Management
